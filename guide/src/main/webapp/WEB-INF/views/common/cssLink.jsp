@@ -27,12 +27,12 @@
 <%-- Bootstrap ICON CSS --%> 	
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 
-<%-- mainCss 링크 --%> 	
-<link rel="stylesheet" href="/resources/css/mainCss.css">
+<%-- 메인 css --%> 	
+<link rel="stylesheet" type="text/css" href="/resources/css/mainCss.css">
 	
 
 
 
-<title>guide</title>
+<title>GOGO</title>
 </head>
 	

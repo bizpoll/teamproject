@@ -70,7 +70,7 @@
 	<context:component-scan base-package="kr.co.guide"></context:component-scan>
 	
 	<!-- 스프링 마이바티스 방식 -->
-	<mybatis-spring:scan base-package="kr.co.guide.sample.sampleMapper"/> 
+	<!-- <mybatis-spring:scan base-package="kr.co.guide.sample.sampleMapper"/>  -->
 	
 	
 	<context:component-scan base-package="kr.co.guide.task"></context:component-scan>

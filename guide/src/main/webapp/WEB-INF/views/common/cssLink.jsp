@@ -32,5 +32,4 @@
 
 <title>guide</title>
 </head>
-<body>
 	

@@ -186,6 +186,7 @@
 				<li class="tab-link" data-tab="tab-3">호텔</li>
 			</ul> -->
 			
+			<!-- 커밋테스트 -->
 			<div class="d-flex justify-content-between m-2 p-2" style="height: 5em;">
 				<div class="d-flex align-items-center" style="width: 20%; background: url('${contextPath}/resources/image/logo.png'); background-position: center; background-repeat: no-repeat; background-size:contain;">
 				</div>

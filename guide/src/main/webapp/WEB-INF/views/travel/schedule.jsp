@@ -186,14 +186,18 @@
 				<li class="tab-link" data-tab="tab-3">호텔</li>
 			</ul> -->
 			
-			<!-- 커밋테스트 -->
 			<div class="d-flex justify-content-between m-2 p-2" style="height: 5em;">
 				<div class="d-flex align-items-center" style="width: 20%; background: url('${contextPath}/resources/image/logo.png'); background-position: center; background-repeat: no-repeat; background-size:contain;">
 				</div>
 				<div class="align-self-center text-start" style="width: 80%; padding-left: 0.5em">
 					<p class="d-flex justify-content-between mb-1" style="width: 100%">
 						<span class="ellipsis"><strong>고운뜰공원</strong>&nbsp;<i class="bi bi-camera-fill"></i></span>
-						<span><i class="bi bi-info-circle text-info"></i>&nbsp;<i class="bi bi-plus-lg"></i></span>
+						<span>
+							<i class="bi bi-info-circle text-info"></i>
+							&nbsp;
+							<input type="hidden" id="addItem" name="addItem" value="추가" onclick="createItem()"/>
+							<label for="addItem"><i class="bi bi-plus-lg"></i></label>
+						</span>
 					</p>
 					<p class="ellipsis m-0">세종특별자치시 만남로 151</p>
 				</div>

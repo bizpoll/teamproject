@@ -481,7 +481,8 @@
 
 		$(this).addClass('current');
 		$("#"+tab_id).addClass('current');
-	})
+	});
 </script>
 </body>
+<!-- 커밋테스트 -->
 </html>

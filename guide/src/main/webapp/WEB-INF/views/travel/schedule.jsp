@@ -127,11 +127,6 @@
 		</div>
 		<div class="scheduling">
 			<h6 class="m-3"><i class="bi bi-list-check"></i>&nbsp;선택목록</h6>
-			<div style="float:left;width:100px;">아이템 추가 : </div>
-		    <div style="clar:both;">
-		        <input type="button" id="addItem" value="추가" onclick="createItem()"/>
-		        <input type="button" id="submitItem" value="제출" onclick="submitItem()"/>
-		    </div>
 			<ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
 				<li class="nav-item" role="presentation">
 					<button class="nav-link active" id="pills-first-tab"
@@ -159,16 +154,24 @@
 			</ul>
 			<div class="tab-content overflow-scroll" id="pills-tabContent" style="height: 40em;">
 				<div class="tab-pane fade show active" id="pills-first" role="tabpanel" aria-labelledby="pills-first-tab">
-					<div class="itemBoxWrap"></div>
+					<div class="itemBoxWrap">
+						<input type="hidden" class="addPlace">
+					</div>
 				</div>
 				<div class="tab-pane fade" id="pills-second" role="tabpanel" aria-labelledby="pills-second-tab">
-					<div class="itemBoxWrap"></div>
+					<div class="itemBoxWrap">
+						<input type="hidden" class="addPlace">
+					</div>
 				</div>
 				<div class="tab-pane fade" id="pills-third" role="tabpanel" aria-labelledby="pills-third-tab">
-					<div class="itemBoxWrap"></div>
+					<div class="itemBoxWrap">
+						<input type="hidden" class="addPlace">
+					</div>
 				</div>
 				<div class="tab-pane fade" id="pills-fourth" role="tabpanel" aria-labelledby="pills-fourth-tab">
-					<div class="itemBoxWrap"></div>
+					<div class="itemBoxWrap">
+						<input type="hidden" class="addPlace">
+					</div>
 				</div>
 			</div>
 		</div>
@@ -186,7 +189,8 @@
 				<li class="tab-link" data-tab="tab-3">호텔</li>
 			</ul> -->
 			
-			<div class="d-flex justify-content-between m-2 p-2" style="height: 5em;">
+			<div class="d-flex justify-content-between shadow m-2 p-2 itemBox" style="height: 5em;">
+				<input type='hidden' class='itemNum'/>
 				<div class="d-flex align-items-center" style="width: 20%; background: url('${contextPath}/resources/image/logo.png'); background-position: center; background-repeat: no-repeat; background-size:contain;">
 				</div>
 				<div class="align-self-center text-start" style="width: 80%; padding-left: 0.5em">
@@ -194,14 +198,78 @@
 						<span class="ellipsis"><strong>고운뜰공원</strong>&nbsp;<i class="bi bi-camera-fill"></i></span>
 						<span>
 							<i class="bi bi-info-circle text-info"></i>
-							&nbsp;
-							<input type="hidden" id="addItem" name="addItem" value="추가" onclick="createItem()"/>
-							<label for="addItem"><i class="bi bi-plus-lg"></i></label>
+							<a class="addItem"><i class="bi bi-plus-lg"></i></a>
+							<span class='deleteBox'><i class='bi bi-x'></i></span>
 						</span>
 					</p>
 					<p class="ellipsis m-0">세종특별자치시 만남로 151</p>
 				</div>
 			</div>
+			<div class="d-flex justify-content-between shadow m-2 p-2 itemBox" style="height: 5em;">
+				<input type='hidden' class='itemNum'/>
+				<div class="d-flex align-items-center" style="width: 20%; background: url('${contextPath}/resources/image/logo.png'); background-position: center; background-repeat: no-repeat; background-size:contain;">
+				</div>
+				<div class="align-self-center text-start" style="width: 80%; padding-left: 0.5em">
+					<p class="d-flex justify-content-between mb-1" style="width: 100%">
+						<span class="ellipsis"><strong>고운뜰공원2</strong>&nbsp;<i class="bi bi-camera-fill"></i></span>
+						<span>
+							<i class="bi bi-info-circle text-info"></i>
+							<a class="addItem"><i class="bi bi-plus-lg"></i></a>
+							<span class='deleteBox'><i class='bi bi-x'></i></span>
+						</span>
+					</p>
+					<p class="ellipsis m-0">세종특별자치시 만남로 151</p>
+				</div>
+			</div>
+			<div class="d-flex justify-content-between shadow m-2 p-2 itemBox" style="height: 5em;">
+				<input type='hidden' class='itemNum'/>
+				<div class="d-flex align-items-center" style="width: 20%; background: url('${contextPath}/resources/image/logo.png'); background-position: center; background-repeat: no-repeat; background-size:contain;">
+				</div>
+				<div class="align-self-center text-start" style="width: 80%; padding-left: 0.5em">
+					<p class="d-flex justify-content-between mb-1" style="width: 100%">
+						<span class="ellipsis"><strong>고운뜰공원3</strong>&nbsp;<i class="bi bi-camera-fill"></i></span>
+						<span>
+							<i class="bi bi-info-circle text-info"></i>
+							<a class="addItem"><i class="bi bi-plus-lg"></i></a>
+							<span class='deleteBox'><i class='bi bi-x'></i></span>
+						</span>
+					</p>
+					<p class="ellipsis m-0">세종특별자치시 만남로 151</p>
+				</div>
+			</div>
+			<div class="d-flex justify-content-between shadow m-2 p-2 itemBox" style="height: 5em;">
+				<input type='hidden' class='itemNum'/>
+				<div class="d-flex align-items-center" style="width: 20%; background: url('${contextPath}/resources/image/logo.png'); background-position: center; background-repeat: no-repeat; background-size:contain;">
+				</div>
+				<div class="align-self-center text-start" style="width: 80%; padding-left: 0.5em">
+					<p class="d-flex justify-content-between mb-1" style="width: 100%">
+						<span class="ellipsis"><strong>고운뜰공원4</strong>&nbsp;<i class="bi bi-camera-fill"></i></span>
+						<span>
+							<i class="bi bi-info-circle text-info"></i>
+							<a class="addItem"><i class="bi bi-plus-lg"></i></a>
+							<span class='deleteBox'><i class='bi bi-x'></i></span>
+						</span>
+					</p>
+					<p class="ellipsis m-0">세종특별자치시 만남로 151</p>
+				</div>
+			</div>
+			<div class="d-flex justify-content-between shadow m-2 p-2 itemBox" style="height: 5em;">
+				<input type='hidden' class='itemNum'/>
+				<div class="d-flex align-items-center" style="width: 20%; background: url('${contextPath}/resources/image/logo.png'); background-position: center; background-repeat: no-repeat; background-size:contain;">
+				</div>
+				<div class="align-self-center text-start" style="width: 80%; padding-left: 0.5em">
+					<p class="d-flex justify-content-between mb-1" style="width: 100%">
+						<span class="ellipsis"><strong>고운뜰공원5</strong>&nbsp;<i class="bi bi-camera-fill"></i></span>
+						<span>
+							<i class="bi bi-info-circle text-info"></i>
+							<a class="addItem"><i class="bi bi-plus-lg"></i></a>
+							<span class='deleteBox'><i class='bi bi-x'></i></span>
+						</span>
+					</p>
+					<p class="ellipsis m-0">세종특별자치시 만남로 151</p>
+				</div>
+			</div>
+			<input type="hidden" class="deletePlace">
 		
 			<!-- <div id="tab-1" class="tab-content current">
 				<h5>명소를 검색하세요</h5> 
@@ -306,24 +374,19 @@
 	}
 	
 	/** 아이템 추가 */
-	function createItem() {
-	    $(createBox())
-	    .appendTo(".show .itemBoxWrap")
-	    .hover(
-	        function() {
-	            $(this).find('.deleteBox').show();
-	        },
-	        function() {
-	            $(this).find('.deleteBox').hide();
-	        }
-	    )
-		.find(".deleteBox").click(function() {
-            $(this).parent().parent().parent().parent().remove();
-            reorder();
-	    });
-	    
-	    reorder(); // 숫자를 다시 붙인다.
-	}
+	$(".addItem").on("click", function(event) {
+		$(this).parent().parent().parent().parent(".itemBox").insertBefore(".show .itemBoxWrap .addPlace");
+		$(this).prev(".bi-info-circle").hide();
+		$(this).hide();
+		$(this).next(".deleteBox").show();
+	});
+	
+	$(".deleteBox").on("click", function(event) {
+		$(this).parent().parent().parent().parent(".itemBox").insertBefore(".deletePlace");
+		$(this).prevAll(".bi-info-circle").show();
+		$(this).prev(".addItem").show();
+		$(this).hide();
+	});
 	
 	/** 아이템 박스 작성 */
 	function createBox() {

@@ -3,6 +3,8 @@
 
 <%@ include file="includes/adminHeader.jsp"%>
 
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Charts</h1>
@@ -67,5 +69,9 @@
                             </div>
                         </div>
                     </div>
+                    
+                        
+                </div>
+                <!-- /.container-fluid -->
 
 <%@ include file="includes/adminFooter.jsp"%>

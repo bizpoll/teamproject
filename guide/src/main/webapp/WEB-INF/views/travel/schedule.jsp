@@ -7,6 +7,15 @@
 	}
 	
 	/* ------- 왼쪽 ------- */
+	/* 날짜 선택 input */
+	.testDatepicker {
+		border: none;
+		width: 7em;
+		text-align: center;
+		cursor: pointer;
+	}
+	
+	/* 일차 탭 */
 	.nav-pills .nav-link {
 		color: #000;
 	}
@@ -94,8 +103,66 @@
 		background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png');
 	}
 	
+	/* 일정생성/추천장소 버튼 */
+	.btn-light {
+		background-color: rgba(255, 255, 255, 0.8);
+		padding: 0.4em 1.2em;
+	}
+	.btn-light:hover {
+		background-color: rgb(65, 207, 218);
+		color: #fff;
+	}
+	
 	/* ------- 오른쪽 ------- */
 	/* search */
+	.placeSearch {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.placeSearch #filter {
+		border: none;
+		border-bottom: 1px solid #ddd;
+		padding: 0.5em 0 0.5em 0.5em;
+		width: 17em;
+	}
+	.placeSearch .bi-search {
+		cursor: pointer;
+	}
+	
+	.tabs {
+		display: flex;
+		justify-content: space-between;
+		list-style: none;
+		padding: 0.3em 1em;
+	}
+	.tab-0, .tab-1, .tab-2, .tab-3 {
+		background-image: linear-gradient(transparent calc(100% - 3px), #41CFDA 3px);
+		background-repeat: no-repeat;
+		background-size: 0% 100%;
+		transition: background-size 0.6s;
+		cursor: pointer;
+		
+		padding: 0.2em 0.7em;
+		
+/* 		display:inline-block; */
+/* 		margin:0; */
+/* 		text-transform:uppercase; */
+	}
+/* 	.tab-1:after, .tab-2:after, .tab-3:after { */
+/* 		display:block; */
+/* 		content: ''; */
+/* 		border-bottom: solid 2px #41CFDA;   */
+/* 		transform: scaleX(0);   */
+/* 		transition: transform 250ms ease-in-out; */
+/* 	} */
+/* 	.tab-1:hover:after, .tab-2:hover:after, .tab-3:hover:after { */
+/* 		transform: scaleX(1.3); */
+/* 	} */
+	.tab-0:hover, .tab-1:hover, .tab-2:hover, .tab-3:hover, .current {
+		background-size: 100% 100%;
+	}
+	
 	#filtersubmit {
 	    position: relative;
 	    z-index: 1;
@@ -116,11 +183,14 @@
 		<div class="city pt-2">
 			<h2 class="fw-bold">제주도</h2>
 			<h5 class="text-secondary">JEJU</h5>
-			<div>
-				<input type="text" id="days">DAY<br>
-				<input type="text" class="testDatepicker" id="startDate" onchange="call()">
-				-
-				<input type="text" class="testDatepicker" id="endDate" onchange="call()">
+			<div class="mt-3">
+				<h4 style="font-weight: bold;">
+					<input type="hidden" id="days">
+					<span id="daysLabel">0</span>&nbsp;DAY
+				</h4>
+				<input type="text" class="testDatepicker" id="startDate" onchange="call()" placeholder="출발일 선택">
+				~
+				<input type="text" class="testDatepicker" id="endDate" onchange="call()" placeholder="도착일 선택">
 			</div>
 			<div class="addInput">
 			</div>
@@ -128,24 +198,24 @@
 		<div class="scheduling">
 			<h6 class="m-3"><i class="bi bi-list-check"></i>&nbsp;선택목록</h6>
 			<ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
-				<li class="nav-item" role="presentation">
+				<li class="nav-item first-tab" role="presentation">
 					<button class="nav-link active" id="pills-first-tab"
 						data-bs-toggle="pill" data-bs-target="#pills-first" type="button"
 						role="tab" aria-controls="pills-first" aria-selected="true">1일차</button>
 				</li>
-				<li class="nav-item" role="presentation">
+				<li class="nav-item second-tab" role="presentation">
 					<button class="nav-link" id="pills-second-tab"
 						data-bs-toggle="pill" data-bs-target="#pills-second"
 						type="button" role="tab" aria-controls="pills-second"
 						aria-selected="false">2일차</button>
 				</li>
-				<li class="nav-item" role="presentation">
+				<li class="nav-item third-tab" role="presentation">
 					<button class="nav-link" id="pills-third-tab"
 						data-bs-toggle="pill" data-bs-target="#pills-third"
 						type="button" role="tab" aria-controls="pills-third"
 						aria-selected="false">3일차</button>
 				</li>
-				<li class="nav-item" role="presentation">
+				<li class="nav-item fourth-tab" role="presentation">
 					<button class="nav-link" id="pills-fourth-tab"
 						data-bs-toggle="pill" data-bs-target="#pills-fourth"
 						type="button" role="tab" aria-controls="pills-fourth"
@@ -177,18 +247,113 @@
 		</div>
 	</div>
 	
-	<div id="map" class="col-lg-8"></div>
+	<div class="col-lg-8 position-relative">
+		<div class="" id="map" style="width: 100%; height: 100%; z-index: 1"></div>
+		<div class="d-flex justify-content-between position-absolute top-0 start-50 translate-middle-x p-3" style="width: 100%; z-index: 10">
+			<span>
+				<button type="button" class="btn btn-light">일정 생성</button>
+			</span>
+			<span>
+				<button type="button" class="btn btn-light">추천 명소</button>
+				<button type="button" class="btn btn-light">추천 음식점</button>
+				<button type="button" class="btn btn-light">추천 호텔</button>
+			</span>
+		</div>
+	</div>
 	
 	<div class="col-lg-2 text-center p-0">
-		<input id="filter" type="text" placeholder=" 검색어를 입력하세요" />
-		<i id="filtersubmit" class="fa fa-search" style="color: #03ABCF"></i>
-		<div>
-			<!-- <ul class="tabs p-0">
-				<li class="tab-link current" data-tab="tab-1">명소</li>
-				<li class="tab-link" data-tab="tab-2">음식점</li>
-				<li class="tab-link" data-tab="tab-3">호텔</li>
-			</ul> -->
-			
+		<div class="placeSearch mt-2">
+			<input id="filter" type="text" placeholder="검색어를 입력해 주세요"/>
+			<i id="filtersubmit" class="bi bi-search" style="color: #41CFDA"></i>
+		</div>
+		<ul class="tabs mb-1">
+			<li class="tab-link tab-0 current" data-tab="tab-0">전체</li>
+			<li class="tab-link tab-1" data-tab="tab-1">명소</li>
+			<li class="tab-link tab-2" data-tab="tab-2">음식점</li>
+			<li class="tab-link tab-3" data-tab="tab-3">호텔</li>
+		</ul>
+		
+		<div class="overflow-scroll" style="height: 50em;">
+			<div class="d-flex justify-content-between shadow m-2 p-2 itemBox" style="height: 5em;">
+				<input type='hidden' class='itemNum'/>
+				<div class="d-flex align-items-center" style="width: 20%; background: url('${contextPath}/resources/image/logo.png'); background-position: center; background-repeat: no-repeat; background-size:contain;">
+				</div>
+				<div class="align-self-center text-start" style="width: 80%; padding-left: 0.5em">
+					<p class="d-flex justify-content-between mb-1" style="width: 100%">
+						<span class="ellipsis"><strong>고운뜰공원</strong>&nbsp;<i class="bi bi-camera-fill"></i></span>
+						<span>
+							<i class="bi bi-info-circle text-info"></i>
+							<a class="addItem"><i class="bi bi-plus-lg"></i></a>
+							<span class='deleteBox'><i class='bi bi-x'></i></span>
+						</span>
+					</p>
+					<p class="ellipsis m-0">세종특별자치시 만남로 151</p>
+				</div>
+			</div>
+			<div class="d-flex justify-content-between shadow m-2 p-2 itemBox" style="height: 5em;">
+				<input type='hidden' class='itemNum'/>
+				<div class="d-flex align-items-center" style="width: 20%; background: url('${contextPath}/resources/image/logo.png'); background-position: center; background-repeat: no-repeat; background-size:contain;">
+				</div>
+				<div class="align-self-center text-start" style="width: 80%; padding-left: 0.5em">
+					<p class="d-flex justify-content-between mb-1" style="width: 100%">
+						<span class="ellipsis"><strong>고운뜰공원2</strong>&nbsp;<i class="bi bi-camera-fill"></i></span>
+						<span>
+							<i class="bi bi-info-circle text-info"></i>
+							<a class="addItem"><i class="bi bi-plus-lg"></i></a>
+							<span class='deleteBox'><i class='bi bi-x'></i></span>
+						</span>
+					</p>
+					<p class="ellipsis m-0">세종특별자치시 만남로 151</p>
+				</div>
+			</div>
+			<div class="d-flex justify-content-between shadow m-2 p-2 itemBox" style="height: 5em;">
+				<input type='hidden' class='itemNum'/>
+				<div class="d-flex align-items-center" style="width: 20%; background: url('${contextPath}/resources/image/logo.png'); background-position: center; background-repeat: no-repeat; background-size:contain;">
+				</div>
+				<div class="align-self-center text-start" style="width: 80%; padding-left: 0.5em">
+					<p class="d-flex justify-content-between mb-1" style="width: 100%">
+						<span class="ellipsis"><strong>고운뜰공원3</strong>&nbsp;<i class="bi bi-camera-fill"></i></span>
+						<span>
+							<i class="bi bi-info-circle text-info"></i>
+							<a class="addItem"><i class="bi bi-plus-lg"></i></a>
+							<span class='deleteBox'><i class='bi bi-x'></i></span>
+						</span>
+					</p>
+					<p class="ellipsis m-0">세종특별자치시 만남로 151</p>
+				</div>
+			</div>
+			<div class="d-flex justify-content-between shadow m-2 p-2 itemBox" style="height: 5em;">
+				<input type='hidden' class='itemNum'/>
+				<div class="d-flex align-items-center" style="width: 20%; background: url('${contextPath}/resources/image/logo.png'); background-position: center; background-repeat: no-repeat; background-size:contain;">
+				</div>
+				<div class="align-self-center text-start" style="width: 80%; padding-left: 0.5em">
+					<p class="d-flex justify-content-between mb-1" style="width: 100%">
+						<span class="ellipsis"><strong>고운뜰공원4</strong>&nbsp;<i class="bi bi-camera-fill"></i></span>
+						<span>
+							<i class="bi bi-info-circle text-info"></i>
+							<a class="addItem"><i class="bi bi-plus-lg"></i></a>
+							<span class='deleteBox'><i class='bi bi-x'></i></span>
+						</span>
+					</p>
+					<p class="ellipsis m-0">세종특별자치시 만남로 151</p>
+				</div>
+			</div>
+			<div class="d-flex justify-content-between shadow m-2 p-2 itemBox" style="height: 5em;">
+				<input type='hidden' class='itemNum'/>
+				<div class="d-flex align-items-center" style="width: 20%; background: url('${contextPath}/resources/image/logo.png'); background-position: center; background-repeat: no-repeat; background-size:contain;">
+				</div>
+				<div class="align-self-center text-start" style="width: 80%; padding-left: 0.5em">
+					<p class="d-flex justify-content-between mb-1" style="width: 100%">
+						<span class="ellipsis"><strong>고운뜰공원5</strong>&nbsp;<i class="bi bi-camera-fill"></i></span>
+						<span>
+							<i class="bi bi-info-circle text-info"></i>
+							<a class="addItem"><i class="bi bi-plus-lg"></i></a>
+							<span class='deleteBox'><i class='bi bi-x'></i></span>
+						</span>
+					</p>
+					<p class="ellipsis m-0">세종특별자치시 만남로 151</p>
+				</div>
+			</div>
 			<div class="d-flex justify-content-between shadow m-2 p-2 itemBox" style="height: 5em;">
 				<input type='hidden' class='itemNum'/>
 				<div class="d-flex align-items-center" style="width: 20%; background: url('${contextPath}/resources/image/logo.png'); background-position: center; background-repeat: no-repeat; background-size:contain;">
@@ -298,6 +463,8 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=84f7824a42d57ad9bcccbdefb2ef0476"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
+	$(".first-tab, .second-tab, .third-tab, .fourth-tab").hide();
+	
 	/* ------- 날짜 ------- */
 	$(function() {
 		$(".testDatepicker").datepicker({ 
@@ -339,9 +506,21 @@
 
         var from_dt = new Date(start_dt[0], start_dt[1], start_dt[2]);
         var to_dt = new Date(end_dt[0], end_dt[1], end_dt[2]);
-        document.getElementById('days').value = ((to_dt.getTime() - from_dt.getTime()) / 1000 / 60 / 60 / 24) + 1;
         
         var days = ((to_dt.getTime() - from_dt.getTime()) / 1000 / 60 / 60 / 24) + 1;
+	    document.getElementById("days").setAttribute("value", days);
+	    document.getElementById("daysLabel").innerText = days;
+	    
+	    if (days == 1) {
+			$(".first-tab").show();
+		} else if (days == 2) {
+			$(".first-tab, .second-tab").show();
+		} else if (days == 3) {
+			$(".first-tab, .second-tab, .third-tab").show();
+		} else if (days >= 4) {
+			$(".first-tab, .second-tab, .third-tab, .fourth-tab").show();
+		}
+        
 		var appendHtml = "";
         return ((to_dt.getTime() - from_dt.getTime()) / 1000 / 60 / 60 / 24) + 1; 
 	}
@@ -375,10 +554,15 @@
 	
 	/** 아이템 추가 */
 	$(".addItem").on("click", function(event) {
-		$(this).parent().parent().parent().parent(".itemBox").insertBefore(".show .itemBoxWrap .addPlace");
-		$(this).prev(".bi-info-circle").hide();
-		$(this).hide();
-		$(this).next(".deleteBox").show();
+		if ($(".first-tab").hide()) {
+			alert("여행 날짜를 선택해 주세요");
+			return false;
+		} else {
+			$(this).parent().parent().parent().parent(".itemBox").insertBefore(".show .itemBoxWrap .addInput");
+			$(this).prev(".bi-info-circle").hide();
+			$(this).hide();
+			$(this).next(".deleteBox").show();
+		}
 	});
 	
 	$(".deleteBox").on("click", function(event) {
@@ -408,7 +592,7 @@
 	}
 	
 	/* ------- 지도 api ------- */
-	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	var mapContainer = document.getElementById("map"), // 지도를 표시할 div 
 	mapOption = { 
 	    center: new kakao.maps.LatLng(35.15972, 126.85306), // 지도의 중심좌표
 	    level: 7 // 지도의 확대 레벨

@@ -71,6 +71,8 @@
 	
 	<!-- 스프링 마이바티스 방식 -->
 	<!-- <mybatis-spring:scan base-package="kr.co.guide.sample.mapper"/>  -->
+	<!-- 기대근 추가 -->
+	<mybatis-spring:scan base-package="kr.co.guide.member.mapper"/>
 	
 	
 	<context:component-scan base-package="kr.co.guide.task"></context:component-scan>

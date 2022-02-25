@@ -9,11 +9,8 @@
 	
 
 <%-- 바디 시작 --%>
-<a href="${contextPath}/login"> 로그인버튼</a><br>${principal}
-<a class="nav-link active" href="javascript:logout.submit();">로그아웃</a>
-<div id="div-logout"></div>
 
-<a href="${contextPath}/member/info">마이페이지</a>
+<a href="${contextPath}/member/modify">회원정보 수정</a>
 <%-- 이곳에 작성해주세요 --%>
 	
 <%-- 바디 끝 --%>
@@ -21,6 +18,6 @@
 	
 <%@ include file="../common/mainfooter.jsp"%>
 <%@ include file="../common/jsLink.jsp"%>
-
+	
 </body>
 </html>

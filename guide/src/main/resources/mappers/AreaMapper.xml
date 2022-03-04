@@ -2,10 +2,12 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="AreaMapper">
+<mapper namespace="kr.co.guide.travel.mapper.AreaMapper">
 	
 	<select id="TourRead" resultType="kr.co.guide.travel.domain.TourDTO">
 		SELECT *
-		FROM tbl_tour 
+		FROM tbl_tour
+		WHERE area_code = 5
+		AND area_detail_code = 4
 	</select>
 </mapper>

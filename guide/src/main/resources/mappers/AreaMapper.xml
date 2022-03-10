@@ -6,6 +6,8 @@
 	
 	<select id="TourRead" resultType="kr.co.guide.travel.domain.TourDTO">
 		SELECT *
-		FROM tbl_tour 
+		FROM tbl_tour
+		WHERE area_code = 5
+		AND area_detail_code = 4
 	</select>
 </mapper>

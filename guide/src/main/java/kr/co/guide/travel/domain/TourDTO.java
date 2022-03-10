@@ -15,8 +15,8 @@ public class TourDTO {
 	private String tour_category1;
 	private String tour_category2;
 	private String tour_category3;
-	private int tour_mapx;
-	private int tour_mapy;
+	private double tour_mapx;
+	private double tour_mapy;
 	private int tour_maplevel;
 	private String tour_homepage;
 	private int tour_count;

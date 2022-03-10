@@ -206,9 +206,9 @@
                <input type="hidden" id="days">
                <span id="daysLabel">0</span>&nbsp;DAY
             </h4>
-            <input type="text" class="testDatepicker" id="startDate" onchange="call()" placeholder="출발일 선택">
+            <input type="text" class="testDatepicker" id="startDate" name="schedule_start" onchange="call()" placeholder="출발일 선택">
             ~
-            <input type="text" class="testDatepicker" id="endDate" onchange="call()" placeholder="도착일 선택">
+            <input type="text" class="testDatepicker" id="endDate" name="schedule_end" onchange="call()" placeholder="도착일 선택">
          </div>
          <div class="addInput">
          </div>
@@ -296,7 +296,8 @@
 <%-- 				<input type="hidden" name="area_code" value="${tour.area_code }"> --%>
 <%-- 				<input type="hidden" name="area_detail_code" value="${tour.area_detail_code }"> --%>
 				<div class="d-flex justify-content-between shadow m-2 p-2 itemBox placeHoverRight" style="height: 5em;">
-					<input type='hidden' class='itemNum'/>
+					<input type="hidden" class="itemNum" name="schedule_order"/>
+					<input type="hidden" class="schedule_day" name="schedule_day"/>
 					<input type="hidden" class="tourType" data-tourtype="${tour.tour_type}"/>
 					<input type="hidden" class="mapxVal" data-mapx="${tour.tour_mapx}"/>
 					<input type="hidden" class="mapyVal" data-mapy="${tour.tour_mapy}"/>
@@ -422,7 +423,12 @@
         
         var days = ((to_dt.getTime() - from_dt.getTime()) / 1000 / 60 / 60 / 24) + 1;
 		document.getElementById("days").setAttribute("value", days);
-		document.getElementById("daysLabel").innerText = days;
+		if (days < 1 || days > 4) {
+			alert("최소 당일, 최대 3박 4일까지 날짜를 선택할 수 있습니다.");
+			return false;
+		} else {
+			document.getElementById("daysLabel").innerText = days;
+		}
        
 		if (days == 1) {
 			$(".first-tab").show();
@@ -539,6 +545,8 @@
 		setMarkers(null);
 		setOverlays(null);
 		
+		console.log(markers.length + ", " + overlays.length);
+		
 		// 생성된 마커/오버레이를 배열에 추가합니다
 	    markers.push(marker);
 	    overlays.push(customOverlay);
@@ -554,6 +562,10 @@
 		// 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
 		map.panTo(moveLatLon);
 	});
+	
+	// 지도에 표시된 마커/오버레이 객체를 가지고 있을 배열입니다
+	var addMarkers = [];
+	var addOverlays = [];
 	
 	/** 아이템 추가 */
 	$(".addItem").on("click", function(event) {
@@ -614,10 +626,13 @@
 			// 마커가 지도 위에 표시되도록 설정합니다
 			if (tourType == 0) {
 				marker.setMap(map);
+				addMarkers.push(marker);
 			} else if (tourType == 1) {
 				marker1.setMap(map);
+				addMarkers.push(marker1);
 			} else {
 				marker2.setMap(map);
+				addMarkers.push(marker2);
 			}
 			
 			// 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
@@ -635,16 +650,23 @@
 				map: map,
 				position: position,
 				content: content,
-				yAnchor: 1 
+				yAnchor: 1
 			});
+			
+			addOverlays.push(customOverlay);
 			
 			reorder();
 			
 			$(this).parent().parent().parent().parent().removeClass("placeHoverRight");
 			$(this).parent().parent().parent().parent().addClass("placeHoverLeft");
+			
+			$("#pills-first .itemBoxWrap .schedule_day").val(1);
+			$("#pills-second .itemBoxWrap .schedule_day").val(2);
+			$("#pills-third .itemBoxWrap .schedule_day").val(3);
+			$("#pills-fourth .itemBoxWrap .schedule_day").val(4);
 		}
 	});
-
+	
 	$(".itemBox").mouseleave(function() {
 		setMarkers(null);
 		setOverlays(null);

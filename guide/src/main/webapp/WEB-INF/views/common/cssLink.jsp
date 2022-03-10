@@ -29,7 +29,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 
 <%-- 메인 css --%> 	
+<link rel="stylesheet" type="text/css" href="${contextPath }/resources/css/mainCss.css">
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/mainCss.css">
+
 	
 <%--진아 파일--%>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
@@ -43,6 +45,7 @@
 
 <%-- 제이쿼리 3.6 --%> 	
 <script type="text/javascript" src="${contextPath}/resources/js/jquery3.6/jquery-3.6.0.min.js"></script>
+
 
 
 

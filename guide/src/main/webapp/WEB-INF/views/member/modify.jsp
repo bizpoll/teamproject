@@ -23,7 +23,11 @@
 						
 						<form action="" method="post" name="frm" id="frm" >
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
-							
+							<div class="section-title-container">
+                                <div class="float-start border-0" style="height: 25px; width: 10px; background-color: #98DDE3; margin-right: 10px"></div>
+                                <h5 style="margin-bottom: 15px">
+                                <b>기본정보</b></h5>
+                            </div>
 							<div class="form-floating mb-2">
 								<input type="text" class="form-control pe-none bg-white" id="member_id" name="member_id" value="${memberInfo.member_id}" placeholder="text" maxlength="50" readonly="readonly"> 
 								<label for="member_id">아이디</label>
@@ -35,25 +39,43 @@
 								<span class="fs-6 text-danger" id="span-member-name">　</span>
 							</div>
 							<div class="form-floating mb-2">
-								<input type="text" class="form-control " id="member_name" name="member_name" value="${memberInfo.member_nickname}" placeholder="text" maxlength="5"> 
-								<label for="member_name">닉네임</label>
-								<span class="fs-6 text-danger" id="span-member-name">　</span>
+								<input type="text" class="form-control " id="member_nickname" name="member_nickname" value="${memberInfo.member_nickname}" placeholder="text" maxlength="5"> 
+								<label for="member_nickname">닉네임</label>
+								<span class="fs-6 text-danger" id="span-member-nickname">　</span>
+							</div>
+							
+							<div class="section-title-container">
+                                <div class="float-start border-0" style="height: 25px; width: 10px; background-color: #98DDE3; margin-right: 10px"></div>
+                                <h5 style="margin-bottom: 15px">
+                                <b>비밀번호</b></h5>
+                            </div>
+							<div class="form-floating mb-2">
+								<input type="text" class="form-control" id="member_password" name="member_password"  placeholder="text" maxlength="20" > 
+								<label for="member_password">비밀번호</label>
+								<span class="fs-6 text-danger" id="span-member-password">　</span>
+							</div>
+							<div class="form-floating mb-2">
+								<input type="text" class="form-control"  id="new_password" name="new_password"  placeholder="text" maxlength="20" > 
+								<label for="new_password">새 비밀번호</label>
+								<span class="fs-6 text-danger" id="span-new-member-password">　</span>
+							</div>
+							<div class="form-floating mb-2">
+								<input type="text" class="form-control" id="confirm_new_password" name="confirm_new_password"  placeholder="text" maxlength="20"> 
+								<label for="confirm_new_password">새 비밀번호 확인</label>
+								<span class="fs-6 text-danger" id="span-confirm-new-password">　</span>
 							</div>
 							
 							<div class="hstack gap-3 mb-3">
-								<button class="btn btn-dark btn-login text-uppercase fw-bold main-hover w-100" id="btn-modify" type="submit">
+								<button class="btn btn-dark btn-login text-uppercase fw-bold w-100 border-0" id="btn-modify" type="submit" style=" background-color: #98DDE3;">
 									정보수정
 								</button>
 							</div>
 							<div class="hstack gap-3">
-								<a href="${contextPath}/member/modifyPassword" class="w-50">
-									<input type="button" value="비밀번호 변경" class="btn btn-dark btn-login text-uppercase fw-bold sub-hover w-100">
-								</a>
-								<button class="btn btn-dark btn-login text-uppercase fw-bold sub-hover w-50" id="btn-delete" type="submit">
+								<button class="btn btn-dark btn-login text-uppercase fw-bold w-50" id="btn-delete" type="submit">
 									회원탈퇴
 								</button>
-								<a href="javascript:window.history.back();" class="w-50">
-									<input type="button" value="뒤로가기" class="btn btn-dark btn-login text-uppercase fw-bold sub-hover w-100">
+								<a href="${contextPath}/member/info" class="w-50">
+									<input type="button" value="뒤로가기" class="btn btn-dark btn-login text-uppercase fw-bold w-100">
 								</a>
 							</div>
 						</form>
@@ -67,6 +89,34 @@
 	
 <%@ include file="../common/mainfooter.jsp"%>
 <%@ include file="../common/jsLink.jsp"%>
-	
+
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		
+		$("#btn-modify").on("click",function(e){
+			e.preventDefault();
+			
+			$("#frm").attr("action", "${contextPath}/member/modify");
+			$("#frm").submit();
+		});
+		
+		$("#btn-delete").on("click",function(e){
+			e.preventDefault();
+			
+			$("#frm").attr("action", "${contextPath}/member/delete");
+			$("#frm").submit();
+		});
+		
+		
+		
+		
+	});
+
+
+
+</script>
+
+
 </body>
 </html>

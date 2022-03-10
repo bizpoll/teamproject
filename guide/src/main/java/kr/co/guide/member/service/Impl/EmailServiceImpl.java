@@ -114,11 +114,10 @@ public class EmailServiceImpl implements IEmailService {
 			System.out.println(newPassword);
 			System.out.println("================================================");
 			
-			mDto.setMember_password(newPassword);
-			mDto.setMember_password(passwordEncoder.encode(mDto.getMember_password()));  //패스워드 암호화 시큐리티
+			mDto.setMember_password(passwordEncoder.encode(newPassword));  //패스워드 암호화 시큐리티
 			//해당 회원의 임시비밀번호로 비밀번호변경
-			memberService.updateMemberPassword(mDto);
-			
+			boolean result = memberService.updateMemberPassword(mDto);
+			System.out.println(result);
 			String context = "임시비밀번호는 " + newPassword + "입니다."
 					+ "로그인 후 꼭 비밀번호를 변경해주세요";
 

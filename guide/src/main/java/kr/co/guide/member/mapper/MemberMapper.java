@@ -19,5 +19,9 @@ public interface MemberMapper {
 	
 	public String selectDuplicateCheck(MemberDTO mDto);         	//회원가입시 중복체크(아이디(이메일) / 닉네임)
 	
-	public int updateMemberPassword(MemberDTO mDto);            	//회원의 비밀번호 변경
+	public int updateMemberInfo(MemberDTO mDto);            		//회원의 정보 수정
+
+	public int updateMemberPassword(MemberDTO mDto);            		//회원의 비밀번호 수정(임시비밀번호전송)
+	
+	public int updateMemberDelete(MemberDTO mDto);            		//회원 탈퇴 컬럼값 변경
 }

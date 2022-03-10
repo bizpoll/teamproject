@@ -24,6 +24,7 @@ public class RestMemberController {
 	@Autowired
 	private IEmailService emailService;
 	
+	// 이메일 인증 전송 기능
 	@RequestMapping(value="/email/certification", method = RequestMethod.POST)
 	public String emailSendPost(@RequestBody String member_id) {
 		
@@ -36,6 +37,7 @@ public class RestMemberController {
 		return massage;
 	}
 	
+	//중복 체크 기능
 	@PostMapping(value="/duplicateCheck")
 	public String duplicateCheckPost(@RequestBody MemberDTO mDto) {
 		

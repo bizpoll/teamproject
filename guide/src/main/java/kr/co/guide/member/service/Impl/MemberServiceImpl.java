@@ -83,13 +83,37 @@ public class MemberServiceImpl implements IMemberService{
 		
 		return memberMapper.selectDuplicateCheck(mDto);
 	}
-
+	
+	//회원 정보 수정
+	@Override
+	public boolean updateMemberInfo(MemberDTO mDto) {
+		
+		log.info("==================== service updateMemberInfo ====================");
+		
+		//비밀번호도 변경하는 경우
+		if(mDto.getMember_password() != "") {
+			mDto.setMember_password(passwordEncoder.encode(mDto.getMember_password()));
+		}
+		System.out.println(mDto);
+		
+		return memberMapper.updateMemberInfo(mDto) == 1 ? true : false;
+	}
+	
+	//회원 비밀번호수정(임시비밀번호 전송
 	@Override
 	public boolean updateMemberPassword(MemberDTO mDto) {
 		
 		log.info("==================== service updateMemberPassword ====================");
 		
-		return memberMapper.updateMemberPassword(mDto) == 1 ? true : false;
+		return  memberMapper.updateMemberPassword(mDto) == 1 ? true : false;
+	}
+
+	@Override
+	public boolean updateMemberDelete(MemberDTO mDto) {
+		
+		log.info("==================== service updateMemberDelete ====================");
+		
+		return memberMapper.updateMemberDelete(mDto) == 1 ? true : false;
 	}
 	
 	

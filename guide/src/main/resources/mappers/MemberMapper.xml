@@ -110,6 +110,8 @@
 		
 		WHERE  member_id =#{member_id}
 		
+		AND    member_withdraw = 'N'
+		
 		<if test="member_password != null">
 		AND    member_password = #{member_password}
 		</if>
@@ -135,13 +137,40 @@
 		</if>
 	</select>
 	
-	<update id="updateMemberPassword">
-		UPDATE tbl_member
+	<!-- 회원 정보 수정 -->
+	<update id="updateMemberInfo" parameterType="kr.co.guide.member.domain.MemberDTO">
+		UPDATE  tbl_member
 		
-		SET    member_password = #{member_password}
-		
-		WHERE  member_id = #{member_id}
+		SET     <if test="member_nickname != null">
+				member_nickname = #{member_nickname}
+				</if>
+		  		  <if test="!(''.equals(member_password))">
+				,member_password = #{member_password}
+				</if>
+				
+		WHERE   member_id = #{member_id}
 	
 	</update>
 	
+	<!-- 회원 임시 비밀번호 전송 -->
+	<update id="updateMemberPassword" parameterType="kr.co.guide.member.domain.MemberDTO">
+		
+		UPDATE  tbl_member
+		
+		SET     member_password = #{member_password}
+		
+		WHERE   member_id = #{member_id}
+	
+	</update>
+	
+	<!-- 회원탈퇴 컬럼명 바꾸기 -->
+	<update id="updateMemberDelete" parameterType="kr.co.guide.member.domain.MemberDTO">
+	
+		UPDATE  tbl_member
+		
+		SET     member_withdraw = 'Y'
+		
+		WHERE   member_id = #{member_id}
+	
+	</update>
 </mapper>

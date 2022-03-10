@@ -50,6 +50,9 @@ public class CustomUserLoginAuthenticationProvider implements AuthenticationProv
 		
 		//계정비번이 틀린경우
 		else if( !passwordEncoder.matches(password, userInfo.getPassword())){
+			System.out.println(!passwordEncoder.matches(password, userInfo.getPassword()));
+			System.out.println(password);
+			System.out.println("여길들어온다고?");
 			throw new BadCredentialsException(id);
 		}
 		

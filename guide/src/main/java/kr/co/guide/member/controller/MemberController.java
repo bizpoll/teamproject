@@ -25,6 +25,7 @@ public class MemberController {
 	@Autowired
 	private IEmailService emailService;
 	
+	//회원 가입 페이지 이동
 	@RequestMapping(value="/join", method = RequestMethod.GET)
 	public String joinGet() {
 		log.info("==================== controller join Get ====================");
@@ -33,6 +34,7 @@ public class MemberController {
 		
 	}
 	
+	//회원 가입 기능
 	@RequestMapping(value="/join", method = RequestMethod.POST)
 	public String joinPost(MemberDTO mDto,  RedirectAttributes rttr) {
 		log.info("==================== controller join Post ====================");
@@ -45,6 +47,7 @@ public class MemberController {
 		
 	}
 	
+	// 회원 정보 찾기 페이지 이동
 	@RequestMapping(value="/find", method = RequestMethod.GET)
 	public String findGet() {
 		
@@ -53,6 +56,7 @@ public class MemberController {
 		return "/member/find";
 	}
 	
+	// 회원 정보 찾기 기능
 	@RequestMapping(value="/find", method = RequestMethod.POST)
 	public String findPost(MemberDTO mDto, RedirectAttributes rttr) {
 		
@@ -70,6 +74,7 @@ public class MemberController {
 		return "redirect:/login";
 	}
 	
+	// 마이페이지 이동
 	@RequestMapping(value="/info", method = RequestMethod.GET)
 	public String infoGet() {
 		
@@ -78,7 +83,7 @@ public class MemberController {
 		return "/member/info";
 	}
 	
-	
+	// 회원정보 수정 페이지 이동
 	@RequestMapping(value="/modify", method = RequestMethod.GET)
 	public String modifyGet(Principal principal, Model model) {
 		
@@ -95,20 +100,30 @@ public class MemberController {
 		return "/member/modify";
 	}
 	
-	
-	@RequestMapping(value="/modifyPassword", method = RequestMethod.GET)
-	public String modifyPasswordGet(Principal principal, Model model) {
+	// 회원정보 수정 기능
+	@RequestMapping(value="/modify", method = RequestMethod.POST)
+	public String modifyPost(MemberDTO mDto, String new_password,RedirectAttributes rttr) {
 		
-		log.info("==================== controller modifyPassword Get ====================");
+		log.info("==================== controller modify Post ====================");
 		
-		MemberDTO mDto = null;
-		
-		if(principal != null) {
-			mDto = memberService.selectMemberInfo(principal.getName());
+		System.out.println(mDto);
+		if(!("".equals(mDto.getMember_password()))) {
+			mDto.setMember_password(new_password);
 		}
+		memberService.updateMemberInfo(mDto);
 		
-		model.addAttribute("memberInfo", mDto);
+		return "redirect:/member/modify";
+	}
+	
+	//회원 탈퇴 기능
+	@RequestMapping(value="/delete", method = RequestMethod.POST)
+	public String deletePost(MemberDTO mDto, String new_password,RedirectAttributes rttr) {
 		
-		return "/member/modifyPassword";
+		log.info("==================== controller delete Post ====================");
+		
+		memberService.updateMemberDelete(mDto);
+		
+		rttr.addFlashAttribute("message", "정상적으로 회원탈퇴 되었습니다.");
+		return "redirect:/";
 	}
 }

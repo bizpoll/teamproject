@@ -31,8 +31,12 @@ public class MemberMGMapperTest {
 	
 //	@Test
 //	public void testRead() throws Exception{
-//		String member_id = "user11@naver.com";
-//		mapper.read(member_id);
+//		String member_id = "user3@naver.com";
+//		MemberDTO mDto = new MemberDTO();
+//		mDto = mapper.read(member_id);
+//		
+//		System.out.println("======================================================================");
+//		System.out.println(mDto.getAuthList());
 //	}
 	
 //	@Test

@@ -1,8 +1,5 @@
 package kr.co.guide.admin.domain;
 
-import java.sql.Timestamp;
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,9 +24,14 @@ public class TourDTO {
 	private String tour_mapy;
 	private String tour_maplevel;
 	private String tour_homepage;
-	private String tour_count;
+	private int tour_count;
 	private String area_code;
 	private String area_detail_code;
+	
+	
+	private String area_name;
+	private String area_detail_name;
+	
 
 }
 

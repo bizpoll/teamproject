@@ -14,6 +14,8 @@ public interface IMemberMGService {
 	//회원 탈퇴
 	public int modifyWithdraw(String member_id) throws Exception;
 	
+	public int confirmNick(String member_nickname) throws Exception;
+	
 	/* ● 탈퇴한 회원 관리 페이지 */
 	public List<MemberDTO> listWithdraw() throws Exception;
 	

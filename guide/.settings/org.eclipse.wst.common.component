@@ -23,6 +23,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/.apt_generated"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/.apt_generated_tests"/>
+
                         		
         
         
@@ -35,7 +36,7 @@
     
     
     </wb-module>
-            
+
 
 
 </project-modules>

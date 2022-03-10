@@ -28,7 +28,7 @@ public class CommonController {
 		log.info("==================== main get ====================");
 		
 	
-		return "common/sample";
+		return "common/index";
 	}
 		
 		

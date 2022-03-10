@@ -93,29 +93,26 @@
 									        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 									      </div>
 									      <div class="modal-body">
-									     	<form action="" method="post" name="" id="">
-												<input type="text" name="${_csrf.parameterName}" value="${_csrf.token}" /><br>
-									     		<input type="text" name="qna_no" value="${qnaInfo.qna_no}"><br>
-												<input type="text" name="qna_write" value="${memberInfo.member_id}" /><br>
+									     	<form action="" method="post" name="" id="reply">
+									     		<input type="text" id="qna_no" name="qna_no" value="${qnaInfo.qna_no}"><br>
+												<input type="text" id="member_id" name="member_id" value="${memberInfo.member_id}" /><br>
 									     		
 									     		<div class="form-group row mb-3">
 											      <label for="member_name" class="col-sm-2 col-form-label fw-bolder">작성자</label>
 											      <div class="col-sm-10">
-											        <input type="text"  class="form-control bg-white pe-none" id="qna_write_name" name="qna_write_name" value="${empty memberInfo.member_name ? '비회원' : memberInfo.member_name}" readonly="readonly">
+											        <input type="text"  class="form-control bg-white pe-none" id="" name="" value="${empty memberInfo.member_name ? '비회원' : memberInfo.member_name}" readonly="readonly">
 											      </div>
 											    </div>
 											    <div class="form-group row mb-3">
 											      <label for="board_contents" class="col-sm-2 col-form-label align-middle fw-bolder" >글 내용</label>
 											      <div class="col-sm-10">
-											        <textarea class="form-control" id="qna_content"  name="qna_content" rows="10" style="resize: none;" maxlength="1300"></textarea>
+											        <textarea class="form-control" id="qna_reply_content"  name="qna_reply_content" rows="10" style="resize: none;" maxlength="1300"></textarea>
 											      </div>
 											    </div>
-									     	
-									     	
 									     	</form>
 									      </div>
 									      <div class="modal-footer">
-									        <button type="button" class="btn btn-primary">등록하기</button>
+									        <button type="button" class="btn btn-primary" id="btn-reply-add">등록하기</button>
 									        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
 									      </div>
 									    </div>
@@ -132,6 +129,49 @@
 	
 <%@ include file="../common/mainfooter.jsp"%>
 <%@ include file="../common/jsLink.jsp"%>
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+		$("#btn-reply-add").on("click", function(e){
+			
+			e.preventDefault();
+			
+			var member_id = $("#member_id").val();
+			var form = {member_id : member_id};
+			var csrf_headername = "${_csrf.headerName}"; 
+			var csrf_token = "${_csrf.token}";
+			
+			$.ajax({
+			    type:  "post",                                                               // 서버로 보내는 방식 결정
+			    data: $("#reply").serialize(),                                                        // 서버로 보내는 데이터 변수 or json형태
+			    dataType: "json",                                                          // 서버로부터 반환되는 타입 지정
+			    url : "${contextPath}/reply/add",                  						 // 요청 url
+			    processData : true,                                                      // 요청으로 보낸 데이터를 query string 형태로 변환할지 여부를 나타냄 기본값은 true
+				contentType:  "application/text; charset-utf-8",                                                       // 서버에 보내는 데이터의 타입
+			    beforeSend : function(xhr) {                                           //ajax가 실행하기 전에 실행되는 이벤트
+			        xhr.setRequestHeader(csrf_headername, csrf_token);
+			    },
+			    success : function(result) {                                             // 성공적으로 요청이 되었을때 실행되는 함수
+					alert("성공")
+					alert(result);
+			    }
+			});
+		});
+		
+		
+		
+		
+		
+		
+		
+	});
+	
+	
+
+</script>
+
 	
 </body>
 </html>

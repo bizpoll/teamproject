@@ -19,8 +19,20 @@
    .nav-pills .nav-link {
       color: #000;
    }
-   .nav-pills .nav-link.active {
-      background-color: #41CFDA;
+   .first-tab .nav-link.active {
+      background-color: #79F116;
+      color: #fff;
+   }
+   .second-tab .nav-link.active {
+      background-color: #03ABCF;
+      color: #fff;
+   }
+   .third-tab .nav-link.active {
+      background-color: #8B5C35;
+      color: #fff;
+   }
+   .fourth-tab .nav-link.active {
+      background-color: #FFC000;
       color: #fff;
    }
    
@@ -35,6 +47,7 @@
    /* 드래그앤드롭 */
    .itemBox { /* 리스트에 포함될 아이템을 위한 스타일 */
       margin: 1em 0.7em;
+      cursor: pointer;
    }
    
    .itemBoxHighlight { /* 아이템을 드래그하면 놓은 자리를 알려주는 스타일 */
@@ -57,6 +70,11 @@
       overflow: hidden;
       text-overflow: ellipsis;
    }
+   
+	span.ellipsis {
+		display: flex;
+		align-items: center;
+	}
    
    /* ------- 지도 ------- */
    .customoverlay {
@@ -180,7 +198,7 @@
 <%-- 바디 시작 --%>
 <div class="row g-0">
    <div class="col-lg-2 text-center p-0" style="height: 100%">
-      <div class="city pt-2">
+      <div class="city pt-2 mb-3">
          <h2 class="fw-bold">제주도</h2>
          <h5 class="text-secondary">JEJU</h5>
          <div class="mt-3">
@@ -196,7 +214,7 @@
          </div>
       </div>
       <div class="scheduling">
-         <h6 class="m-3"><i class="bi bi-list-check"></i>&nbsp;선택목록</h6>
+<!--          <h6 class="m-3"><i class="bi bi-list-check"></i>&nbsp;선택목록</h6> -->
          <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
             <li class="nav-item first-tab" role="presentation">
                <button class="nav-link active" id="pills-first-tab"
@@ -222,7 +240,7 @@
                   aria-selected="false">4일차</button>
             </li>
          </ul>
-         <div class="tab-content overflow-scroll" id="pills-tabContent" style="height: 40em;">
+         <div class="tab-content overflow-scroll" id="pills-tabContent" style="height: 41em;">
             <div class="tab-pane fade show active" id="pills-first" role="tabpanel" aria-labelledby="pills-first-tab">
                <div class="itemBoxWrap">
                   <input type="hidden" class="addPlace">
@@ -261,42 +279,44 @@
       </div>
    </div>
    
-   <div class="col-lg-2 text-center p-0">
-      <div class="placeSearch mt-2">
-         <input id="filter" type="text" placeholder="검색어를 입력해 주세요"/>
-         <i id="filtersubmit" class="bi bi-search" style="color: #41CFDA"></i>
-      </div>
-      <ul class="tabs mb-1">
-         <li class="tab-link tab-0 current" data-tab="tab-0">전체</li>
-         <li class="tab-link tab-1" data-tab="tab-1">명소</li>
-         <li class="tab-link tab-2" data-tab="tab-2">음식점</li>
-         <li class="tab-link tab-3" data-tab="tab-3">호텔</li>
-      </ul>
+	<div class="col-lg-2 text-center p-0">
+		<div class="placeSearch mt-2">
+			<input id="filter" type="text" placeholder="검색어를 입력해 주세요"/>
+			<i id="filtersubmit" class="bi bi-search" style="color: #41CFDA"></i>
+		</div>
+		<ul class="tabs mb-1">
+			<li class="tab-link tab-3 current" data-tab="tab-3">전체</li>
+			<li class="tab-link tab-0" data-tab="tab-0">명소</li>
+			<li class="tab-link tab-1" data-tab="tab-1">음식점</li>
+			<li class="tab-link tab-2" data-tab="tab-2">호텔</li>
+		</ul>
       
-      <div class="overflow-scroll" style="height: 50em;">
-      <c:forEach items="${tour}" var = "tour">
-	         <div class="d-flex justify-content-between shadow m-2 p-2 itemBox" style="height: 5em;">
-	            <input type='hidden' class='itemNum'/>
-<!--       		<input type="hidden" name="area_code"> -->
-<!--       		<input type="hidden" name="area_detail_code"> -->
-	            <input type="hidden" data-mapx="${tour.tour_mapx }"/>
-	            <input type='hidden' data-mapy="${tour.tour_mapy }"/>
-	            <div data-id="${tour.tour_image }" class="d-flex align-items-center" style="width: 20%; background: url('${tour.tour_image}'); background-position: center; background-repeat: no-repeat; background-size:contain;">
-	            </div>
-	            <div class="align-self-center text-start" style="width: 80%; padding-left: 0.5em">
-	               <p class="d-flex justify-content-between mb-1" style="width: 100%">
-	                  <span class="ellipsis"><strong id="title">${tour.tour_title }</strong>&nbsp;<i class="bi bi-camera-fill"></i></span>
-	                  <span>
-	                     <i class="bi bi-info-circle text-info" id="infoItem"></i>
-	                     <a class="addItem"><i class="bi bi-plus-lg"></i></a>
-	                     <span class='deleteBox'><i class='bi bi-x'></i></span>
-	                  </span>
-	               </p>
-				   <p class="ellipsis m-0">${tour.tour_address}</p>
-	            </div>
-	         </div>
-         </c:forEach>
-         <input type="hidden" class="deletePlace">
+		<div class="overflow-scroll selPlace" style="height: 50em;">
+			<c:forEach items="${tour}" var="tour">
+<%-- 				<input type="hidden" name="area_code" value="${tour.area_code }"> --%>
+<%-- 				<input type="hidden" name="area_detail_code" value="${tour.area_detail_code }"> --%>
+				<div class="d-flex justify-content-between shadow m-2 p-2 itemBox tourType${tour.tour_type}" style="height: 5em;">
+					<input type='hidden' class='itemNum'/>
+<%-- 					<input type="hidden" class="tourType${tour.tour_type}" data-tourtype="${tour.tour_type}"/> --%>
+					<input type="hidden" class="mapxVal" data-mapx="${tour.tour_mapx}"/>
+					<input type="hidden" class="mapyVal" data-mapy="${tour.tour_mapy}"/>
+					<div class="d-flex align-items-center" style="width: 20%; background: url('${tour.tour_image}'); background-position: center; background-repeat: no-repeat; background-size:contain;">
+					</div>
+					<img alt="모달 이미지" src="${tour.tour_image }" style="display: none;" id="p_image">
+					<div class="align-self-center text-start" style="width: 80%; padding-left: 0.5em">
+						<p class="d-flex justify-content-between mb-1" style="width: 100%">
+							<span class="ellipsis" style="width: 82%"><strong>${tour.tour_title }</strong>&nbsp;</span>
+							<span style="width: 18%; text-align: center;">
+							   <i class="bi bi-info-circle text-info" id="infoItem"></i>
+							   <a class="addItem"><i class="bi bi-plus-lg"></i></a>
+							   <span class='deleteBox'><i class='bi bi-x'></i></span>
+							</span>
+						</p>
+						<p class="ellipsis m-0">${tour.tour_address}</p>
+					</div>
+				</div>
+			</c:forEach>
+			<input type="hidden" class="deletePlace">
       
          <!-- <div id="tab-1" class="tab-content current">
             <h5>명소를 검색하세요</h5> 
@@ -316,36 +336,32 @@
             <p>장소명을 검색하세요</p>
             <p>검색어는 두글자 이상 입력해주세요</p>
          </div> -->
-      </div>
-   </div>
+		</div>
+	</div>
 </div>   
 <%-- 바디 끝 --%>
-
-<!-- 경진 -->
-<button id="testBtn" class="btn" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">모달 테스트</button>
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<div class="modal-header" style="justify-content: flex-end;border-bottom: none;">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="border: none;background-color: white;">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div><img alt="" src="/guide/resources/image/map-marker.png"></div>
+			<div class="modal-body" style="padding: 5px;">
 				<div>
-					<h6 class="modal-title" id="myModalLabel"></h6>
-					<input class="modal-title" value="">
-					<div>
-						<img alt="장소이미지" src="" id="image">
+					<div class="modalBox">
+						<img alt="장소이미지" src="" style="width: 40%; height: 146px;float: left;">
+					</div>
+					<div style="width: 60%;float: right;">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="border: none;background-color: white;float: right;">
+							<span aria-hidden="true">&times;</span>
+						</button>	
+						<h6 class="modal-title" id="myModalLabel" style="padding-left: 15px;padding-top: 10px;"></h6>
+						<p></p>
+						<div class="modal-footer" style="border-top: none;padding: 58px 0px 0px 0px;">
+							<button type="button" class="btn btn-default" data-dismiss="modal" style="background-color: #41CFDA;color: #fff;font-size: 5px;font-weight: bold;" id="listadd">목록추가</button>
+							<button type="button" class="btn btn-primary" style="background-color: gray;font-size: 5px;font-weight: bold;border-color: gray;" id="revieww">리뷰보기</button>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal" style="background-color: #41CFDA;color: #fff;font-size: 5px;font-weight: bold;">목록추가</button>
-				<button type="button" class="btn btn-primary" style="background-color: gray;font-size: 5px;font-weight: bold;border-color: gray;">리뷰보기</button>
 			</div>
 		</div>
 	</div>
@@ -379,8 +395,8 @@
       });
    });
       
-   function call() {
-       var sdd = document.getElementById("startDate").value;
+	function call() {
+		var sdd = document.getElementById("startDate").value;
         var edd = document.getElementById("endDate").value;
         var FORMAT = "-";
 
@@ -400,22 +416,22 @@
         var to_dt = new Date(end_dt[0], end_dt[1], end_dt[2]);
         
         var days = ((to_dt.getTime() - from_dt.getTime()) / 1000 / 60 / 60 / 24) + 1;
-       document.getElementById("days").setAttribute("value", days);
-       document.getElementById("daysLabel").innerText = days;
+		document.getElementById("days").setAttribute("value", days);
+		document.getElementById("daysLabel").innerText = days;
        
-       if (days == 1) {
-         $(".first-tab").show();
-      } else if (days == 2) {
-         $(".first-tab, .second-tab").show();
-      } else if (days == 3) {
-         $(".first-tab, .second-tab, .third-tab").show();
-      } else if (days >= 4) {
-         $(".first-tab, .second-tab, .third-tab, .fourth-tab").show();
-      }
+		if (days == 1) {
+			$(".first-tab").show();
+		} else if (days == 2) {
+			$(".first-tab, .second-tab").show();
+		} else if (days == 3) {
+			$(".first-tab, .second-tab, .third-tab").show();
+		} else if (days >= 4) {
+			$(".first-tab, .second-tab, .third-tab, .fourth-tab").show();
+		}
         
-      var appendHtml = "";
-        return ((to_dt.getTime() - from_dt.getTime()) / 1000 / 60 / 60 / 24) + 1; 
-   }
+		var appendHtml = "";
+		return ((to_dt.getTime() - from_dt.getTime()) / 1000 / 60 / 60 / 24) + 1; 
+	}
    
    /* ------- 드래그앤드롭 ------- */
    /** UI 설정 */
@@ -444,137 +460,177 @@
        });
    }
    
-   /** 아이템 추가 */
-   $(".addItem").on("click", function(event) {
-      if ($(".first-tab").hide()) {
-         alert("여행 날짜를 선택해 주세요");
-         return false;
-      } else {
-         $(this).parent().parent().parent().parent(".itemBox").insertBefore(".show .itemBoxWrap .addInput");
-         $(this).prev(".bi-info-circle").hide();
-         $(this).hide();
-         $(this).next(".deleteBox").show();
-      }
-   });
+	/** 아이템 추가 */
+	$(".addItem").on("click", function(event) {
+		var firstLeng = $("#pills-first .itemBoxWrap .itemBox").length;
+		var secondLeng = $("#pills-second .itemBoxWrap .itemBox").length;
+		var thirdLeng = $("#pills-third .itemBoxWrap .itemBox").length;
+		var fourthLeng = $("#pills-fourth .itemBoxWrap .itemBox").length;
+		
+		if ($("#days").val() < 0 || $("#days").val() == "") {
+			alert("여행 날짜를 선택해 주세요");
+			return false;
+		} /* else if (firstLeng >= 8 || secondLeng >= 8 || thirdLeng >= 8 || fourthLeng >= 8) {
+			alert("일차별 최대 8개의 일정만 추가하실 수 있습니다.");
+			return false;
+		} */ else {
+			$(this).parent().parent().parent().parent(".itemBox").insertBefore(".show .itemBoxWrap .addPlace");
+			$(this).prev(".bi-info-circle").hide();
+			$(this).hide();
+			$(this).next(".deleteBox").show();
+			reorder();
+		}
+	});
    
    $(".deleteBox").on("click", function(event) {
       $(this).parent().parent().parent().parent(".itemBox").insertBefore(".deletePlace");
       $(this).prevAll(".bi-info-circle").show();
       $(this).prev(".addItem").show();
       $(this).hide();
+      reorder();
    });
    
-   /** 아이템 박스 작성 */
-   function createBox() {
-       var contents = "<div class='place shadow itemBox'>"
-                       + "<input type='hidden' class='itemNum'/>"
-                       + "<div class='d-flex justify-content-between p-2' style='height: 5em; background-color: #fff' id='first'>"
-                     + "<div class='d-flex align-items-center' style='width: 20%; background: url('${contextPath}/resources/image/logo.png'); background-position: center; background-repeat: no-repeat; background-size:contain;'>"
-                         + "</div>"
-                          + "<div class='align-self-center text-start' style='width: 80%; padding-left: 0.5em'>"
-                             + "<p class='d-flex justify-content-between mb-1' style='width: 100%'>"
-                                + "<span class='ellipsis'><strong>고운뜰공원</strong>&nbsp;<i class='bi bi-house-fill'></i></span>"
-                                + "<span class='deleteBox'><i class='bi bi-x'></i></span>"
-                             + "</p>"
-                             + "<p class='ellipsis m-0'>세종특별자치시 만남로 151</p>"
-                          + "</div>"
-                       + "</div>";
-                    + "</div>";
-       return contents;
-   }
+	/* ------- 지도 api ------- */
+	var mapContainer = document.getElementById("map"), // 지도를 표시할 div 
+		mapOption = { 
+		    center: new kakao.maps.LatLng(36.30722, 127.57194), // 지도의 중심좌표
+		    level: 6 // 지도의 확대 레벨
+	};
+	
+	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
    
-   /* ------- 지도 api ------- */
-   var mapContainer = document.getElementById("map"), // 지도를 표시할 div 
-   mapOption = { 
-       center: new kakao.maps.LatLng(35.15972, 126.85306), // 지도의 중심좌표
-       level: 7 // 지도의 확대 레벨
-   };
+	function setCenter() {            
+	   // 이동할 위도 경도 위치를 생성합니다 
+	   var moveLatLon = new kakao.maps.LatLng(35.15972, 126.85306);
+	   
+	   // 지도 중심을 이동 시킵니다
+	   map.setCenter(moveLatLon);
+	}
+	
+	// 지도에 표시된 마커/오버레이 객체를 가지고 있을 배열입니다
+	var markers = [];
+	var overlays = [];
    
-   var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-   
-   function setCenter() {            
-      // 이동할 위도 경도 위치를 생성합니다 
-      var moveLatLon = new kakao.maps.LatLng(35.15972, 126.85306);
+	$(".itemBox").hover(function(event) {
+		var mapx = $(this).children(".mapxVal").data('mapx');
+		var mapy = $(this).children(".mapyVal").data('mapy');
+		var mapName = $(this).children(".text-start").children("p").children(".ellipsis").text();
+		
+		// 이동할 위도 경도 위치를 생성합니다 
+		var moveLatLon = new kakao.maps.LatLng(mapy, mapx);
       
-      // 지도 중심을 이동 시킵니다
-      map.setCenter(moveLatLon);
-   }
-   
-   $(".panTo").on("click", function(event) {
-      var mapx = $(this).data('mapx');
-      var mapy = $(this).data('mapy');
-      var mapName = $(this).text();
+		// 지도 중심을 부드럽게 이동시킵니다
+		// 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+		map.panTo(moveLatLon);
       
-      // 이동할 위도 경도 위치를 생성합니다 
-      var moveLatLon = new kakao.maps.LatLng(mapx, mapy);
-      
-      // 지도 중심을 부드럽게 이동시킵니다
-      // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
-      map.panTo(moveLatLon);
-      
-      var imageSrc = '${contextPath}/resources/image/travel/marker/0_tour.png', // 마커이미지의 주소입니다    
-       imageSize = new kakao.maps.Size(40, 60), // 마커이미지의 크기입니다
-       imageOption = {offset: new kakao.maps.Point(22, 65)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+		var imageSrc = '${contextPath}/resources/image/travel/marker/0_tour.png', // 마커이미지의 주소입니다    
+			imageSize = new kakao.maps.Size(40, 60), // 마커이미지의 크기입니다
+			imageOption = {offset: new kakao.maps.Point(22, 65)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 
-      // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-      var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
-          markerPosition = new kakao.maps.LatLng(mapx, mapy); // 마커가 표시될 위치입니다
+		// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+		var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+		    markerPosition = new kakao.maps.LatLng(mapy, mapx); // 마커가 표시될 위치입니다
+		
+		// 마커를 생성합니다
+		var marker = new kakao.maps.Marker({
+		   position: markerPosition,
+		   image: markerImage // 마커이미지 설정 
+		});
+		
+		// 마커가 지도 위에 표시되도록 설정합니다
+		marker.setMap(map);
+		
+		// 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+		var content = '<div class="customoverlay">' +
+		    '  <a href="https://map.kakao.com" target="_blank">' +
+		    '    <span class="title">' + mapName + '</span>' +
+		    '  </a>' +
+		    '</div>';
       
-      // 마커를 생성합니다
-      var marker = new kakao.maps.Marker({
-         position: markerPosition,
-         image: markerImage // 마커이미지 설정 
-      });
+		// 커스텀 오버레이가 표시될 위치입니다 
+		var position = new kakao.maps.LatLng(mapy, mapx);  
       
-      // 마커가 지도 위에 표시되도록 설정합니다
-      marker.setMap(map);
-      
-      // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-      var content = '<div class="customoverlay">' +
-          '  <a href="https://map.kakao.com" target="_blank">' +
-          '    <span class="title">' + mapName + '</span>' +
-          '  </a>' +
-          '</div>';
-      
-      // 커스텀 오버레이가 표시될 위치입니다 
-      var position = new kakao.maps.LatLng(mapx, mapy);  
-      
-      // 커스텀 오버레이를 생성합니다
-      var customOverlay = new kakao.maps.CustomOverlay({
-          map: map,
-          position: position,
-          content: content,
-          yAnchor: 1 
-      });
-   });
+		// 커스텀 오버레이를 생성합니다
+		var customOverlay = new kakao.maps.CustomOverlay({
+			map: map,
+			position: position,
+			content: content,
+			yAnchor: 1 
+		});
+		
+		setMarkers(null);
+		setOverlays(null);
+		
+		// 생성된 마커/오버레이를 배열에 추가합니다
+	    markers.push(marker);
+	    overlays.push(customOverlay);
+	});
+	
+	function setMarkers(map) {
+	    for (var i = 0; i < markers.length; i++) {
+	        markers[i].setMap(map);
+	    }            
+	}
+	function setOverlays(map) {
+	    for (var i = 0; i < overlays.length; i++) {
+	    	overlays[i].setMap(map);
+	    }            
+	}
    
    /* ------- 검색부분 ------- */
-   $('ul.tabs li').click(function(){
-      var tab_id = $(this).attr('data-tab');
-
-      $('ul.tabs li').removeClass('current');
-      $('.tab-content').removeClass('current');
-
-      $(this).addClass('current');
-      $("#"+tab_id).addClass('current');
-   });
-   
-   
-   //경진
-   $('#infoItem').click(function(e){
-		e.preventDefault();
-		$('#myModal').modal("show");
+	$('ul.tabs li').click(function(){
+		var tab_id = $(this).attr('data-tab');
 		
-		var title = $(this).data('#title'); 
-		  
-		  console.log($('#title').val());
-		  console.log( $(this).data('#title'));
-// 		  modal.find('.modal-body .modal-title').val(title);
-		  
-		  var myBookId = $(this).data('#title'); 
-		  $(".modal-body #title").val( title );
-
+		$('ul.tabs li').removeClass('current');
+		$('.tab-content').removeClass('current');
+		
+		$(this).addClass('current');
+		$("#"+tab_id).addClass('current');
 	});
+   
+	var type0 = $(".tourType0").length;
+	var type1 = $(".tourType1").length;
+	var type2 = $(".tourType2").length;
+	
+	$(".tab-0").on("click", function(event) {
+		$(".selPlace div.tourType1").hide();
+		$(".selPlace div.tourType2").hide();
+// 		for (var i = 0; i < type1; i++) {
+// 			$(".selPlace .tourType1").eq(i).parent(".itemBox").hide();
+// 		}
+// 		for (var i = 0; i < type2; i++) {
+// 			$(".selPlace .tourType2").eq(i).parent(".itemBox").hide();
+// 		}
+	});
+	$(".tab-1").on("click", function(event) {
+		for (var i = 0; i < type0; i++) {
+			$(".selPlace .tourType0").eq(i).parent(".itemBox").hide();
+		}
+		for (var i = 0; i < type2; i++) {
+			$(".selPlace .tourType2").eq(i).parent(".itemBox").hide();
+		}
+	});
+	$(".tab-2").on("click", function(event) {
+		for (var i = 0; i < type0; i++) {
+			$(".selPlace .tourType0").eq(i).parent(".itemBox").hide();
+		}
+		for (var i = 0; i < type1; i++) {
+			$(".selPlace .tourType1").eq(i).parent(".itemBox").hide();
+		}
+	});
+	
+	//경진
+	$('i#infoItem').click(function(e){
+		e.preventDefault();
+		$('div#myModal').modal("show");
+		
+		var imgSrc = $(this).parent().parent().parent().prev("#p_image").attr("src");
+
+		$(".modal-title").text($(this).parent().prevAll("span.ellipsis").text());
+		$(".modalBox img").attr("src", imgSrc);
+		
+	});
+	
 </script>
 </body>
 </html>

@@ -539,6 +539,8 @@
 		setMarkers(null);
 		setOverlays(null);
 		
+		console.log(markers.length + ", " + overlays.length);
+		
 		// 생성된 마커/오버레이를 배열에 추가합니다
 	    markers.push(marker);
 	    overlays.push(customOverlay);
@@ -554,6 +556,10 @@
 		// 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
 		map.panTo(moveLatLon);
 	});
+	
+	// 지도에 표시된 마커/오버레이 객체를 가지고 있을 배열입니다
+	var addMarkers = [];
+	var addOverlays = [];
 	
 	/** 아이템 추가 */
 	$(".addItem").on("click", function(event) {
@@ -614,10 +620,13 @@
 			// 마커가 지도 위에 표시되도록 설정합니다
 			if (tourType == 0) {
 				marker.setMap(map);
+				addMarkers.push(marker);
 			} else if (tourType == 1) {
 				marker1.setMap(map);
+				addMarkers.push(marker1);
 			} else {
 				marker2.setMap(map);
+				addMarkers.push(marker2);
 			}
 			
 			// 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
@@ -635,8 +644,10 @@
 				map: map,
 				position: position,
 				content: content,
-				yAnchor: 1 
+				yAnchor: 1
 			});
+			
+			addOverlays.push(customOverlay);
 			
 			reorder();
 			

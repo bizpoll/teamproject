@@ -33,16 +33,6 @@ $(document).ready(function(){
 	
 	$("#modal").append(str);
 	
-	<%-- 로그아웃 가상돔 --%>
-	str = "";
-
-	str += '<form action="${contextPath}/logout" method="POST" name="logout">';
-	str += '<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>';
-	str += '</form>';
-				
-	$("#div-logout").append(str);
-
-	
 		
 	var message = "";
 	message += "${message}";

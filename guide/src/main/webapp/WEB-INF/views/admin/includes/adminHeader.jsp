@@ -77,8 +77,8 @@
                 </a>
                 <div id="collapsTourMG" class="collapse" aria-labelledby="headingTourMG" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="#">여행지 통계</a>
-                        <a class="collapse-item" href="#">여행지 목록</a>
+                        <!-- <a class="collapse-item" href="#">여행지 통계</a> -->
+                        <a class="collapse-item" href="${contextPath}/admin/tourMG/tourList">여행지 목록</a>
                     </div>
                 </div>
             </li>

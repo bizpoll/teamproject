@@ -25,23 +25,6 @@
 	<result property="member_authority" column="member_authority" />
 </resultMap>
 
-
-	<select id="read" resultType="kr.co.guide.admin.domain.MemberDTO">
-		SELECT 
-			member_id,
-			member_password,
-			member_name,
-			member_nickname,
-			member_regist_date,
-			member_access_date,
-			member_withdraw,
-			member_delete_date,
-			member_dormant,
-			member_dormant_date,
-			member_lock
-		FROM tbl_member
-		WHERE member_id = #{member_id}
-	</select>
 	
 	<!-- 탈퇴안한 회원 리스트 -->
 	<select id="getListWithdrawN" resultType="kr.co.guide.admin.domain.MemberDTO">
@@ -58,6 +41,31 @@
 	</update>
 	
 	<!-- ● 회원정보 수정 페이지 -->
+	<select id="read" resultMap="memberMap">
+		SELECT 
+		    m.member_id,
+		    member_authority,
+		    member_password,
+		    member_name,
+		    member_nickname,
+		    member_regist_date,
+		    member_access_date,
+		    member_withdraw,
+		    member_delete_date,
+		    member_dormant,
+		    member_dormant_date,
+		    member_lock
+		FROM tbl_member m
+		join tbl_authority au
+		on m.member_id = au.member_id
+		WHERE m.member_id = #{member_id}
+	</select>
+	<select id="confirmNick"  parameterType="string" resultType="int">
+		SELECT 
+		    count(*)
+		FROM tbl_member
+		WHERE member_nickname = #{member_nickname}
+	</select>
 
 	<!-- ● 탈퇴한 회원 관리 페이지 -->
 	<select id="getListWithdrawY" resultType="kr.co.guide.admin.domain.MemberDTO">

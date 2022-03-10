@@ -54,6 +54,11 @@ public class MemberMGService implements IMemberMGService{
 		log.info("MemberMGService...... remove ..................");
 		return mapper.delete(member_id);
 	}
+
+	@Override
+	public int confirmNick(String member_nickname) throws Exception {
+		return mapper.confirmNick(member_nickname);
+	}
 	
 
 }

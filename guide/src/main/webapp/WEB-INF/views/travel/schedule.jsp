@@ -206,9 +206,9 @@
                <input type="hidden" id="days">
                <span id="daysLabel">0</span>&nbsp;DAY
             </h4>
-            <input type="text" class="testDatepicker" id="startDate" onchange="call()" placeholder="출발일 선택">
+            <input type="text" class="testDatepicker" id="startDate" name="schedule_start" onchange="call()" placeholder="출발일 선택">
             ~
-            <input type="text" class="testDatepicker" id="endDate" onchange="call()" placeholder="도착일 선택">
+            <input type="text" class="testDatepicker" id="endDate" name="schedule_end" onchange="call()" placeholder="도착일 선택">
          </div>
          <div class="addInput">
          </div>
@@ -296,7 +296,8 @@
 <%-- 				<input type="hidden" name="area_code" value="${tour.area_code }"> --%>
 <%-- 				<input type="hidden" name="area_detail_code" value="${tour.area_detail_code }"> --%>
 				<div class="d-flex justify-content-between shadow m-2 p-2 itemBox placeHoverRight" style="height: 5em;">
-					<input type='hidden' class='itemNum'/>
+					<input type="hidden" class="itemNum" name="schedule_order"/>
+					<input type="hidden" class="schedule_day" name="schedule_day"/>
 					<input type="hidden" class="tourType" data-tourtype="${tour.tour_type}"/>
 					<input type="hidden" class="mapxVal" data-mapx="${tour.tour_mapx}"/>
 					<input type="hidden" class="mapyVal" data-mapy="${tour.tour_mapy}"/>
@@ -422,7 +423,12 @@
         
         var days = ((to_dt.getTime() - from_dt.getTime()) / 1000 / 60 / 60 / 24) + 1;
 		document.getElementById("days").setAttribute("value", days);
-		document.getElementById("daysLabel").innerText = days;
+		if (days < 1 || days > 4) {
+			alert("최소 당일, 최대 3박 4일까지 날짜를 선택할 수 있습니다.");
+			return false;
+		} else {
+			document.getElementById("daysLabel").innerText = days;
+		}
        
 		if (days == 1) {
 			$(".first-tab").show();
@@ -653,9 +659,14 @@
 			
 			$(this).parent().parent().parent().parent().removeClass("placeHoverRight");
 			$(this).parent().parent().parent().parent().addClass("placeHoverLeft");
+			
+			$("#pills-first .itemBoxWrap .schedule_day").val(1);
+			$("#pills-second .itemBoxWrap .schedule_day").val(2);
+			$("#pills-third .itemBoxWrap .schedule_day").val(3);
+			$("#pills-fourth .itemBoxWrap .schedule_day").val(4);
 		}
 	});
-
+	
 	$(".itemBox").mouseleave(function() {
 		setMarkers(null);
 		setOverlays(null);

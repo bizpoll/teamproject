@@ -5,9 +5,6 @@
 <mapper namespace="kr.co.marking.product.mapper.ProductMapper">
 	
 	
-	<insert id="insert" parameterType="kr.co.guide.sample.domain.SampleDTO">
 	
-	
-	</insert>
 	
 </mapper>

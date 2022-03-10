@@ -19,11 +19,31 @@
 
 	<security:http auto-config="true" use-expressions="true">
 	
-		<!-- <security:intercept-url pattern="/marking.co.kr/board/list" access="hasRole('ROLE_MEMBER')"/>  -->
+		<!-- <security:intercept-url pattern="/gogo.co.kr" access="hasRole('ROLE_MEMBER')"/> -->
 		
-	
+		<security:form-login  username-parameter="member_id"         
+							  password-parameter="member_password"
+							  login-page="/login"
+							  login-processing-url="/login"
+							  authentication-failure-handler-ref="CustomUserLoginFailHandler"
+							  authentication-success-handler-ref="CustomUserLoginSuccessHandler"/>
+		
+		<security:access-denied-handler error-page="/gogo.co.kr/dninePage"/>
+		
+		<security:logout  logout-url="/logout"
+						  logout-success-url="/"	
+						  invalidate-session="true"
+						  delete-cookies=""/>
+						 
 			
 	</security:http>
+	
+	<security:authentication-manager>
+		
+		<!-- AuthenticationProvider 커스터마이징 -->
+		<security:authentication-provider  ref="CustomUserLoginAuthenticationProvider"/>
+	   
+	</security:authentication-manager>
 	
 	
 	

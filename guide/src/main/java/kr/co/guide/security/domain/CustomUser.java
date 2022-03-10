@@ -1,56 +1,41 @@
 package kr.co.guide.security.domain;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 
-import lombok.ToString;
+import kr.co.guide.member.domain.MemberDTO;
+import lombok.extern.log4j.Log4j;
 
 
-/* Spring Security 로그인을 위한 UserDetails VO 객체 */
-@ToString
-public class CustomUser implements UserDetails {@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
+
+@Log4j
+public class CustomUser extends User {
+	
+	
+	
+	private static final long serialVersionUID = 1L;
+	
+	private MemberDTO mDto;
+	
+	
+	public CustomUser(String username, String password, boolean enabled, boolean accountNonExpired,
+			boolean credentialsNonExpired, boolean accountNonLocked,
+			Collection<? extends GrantedAuthority> authorities) {
+		super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
 	}
-
-	@Override
-	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public CustomUser(MemberDTO mDto) {
+		
+		super(mDto.getMember_id(), mDto.getMember_password(), mDto.getAuthList().stream()
+			 .map(auth -> new SimpleGrantedAuthority(auth.getMember_authority())).collect(Collectors.toList()));
+		
+		this.mDto = mDto;
 	}
-
-	@Override
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
 	
 	
 	

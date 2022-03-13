@@ -40,13 +40,19 @@ public class QnaController {
 	
 	//qna 게시판 이동
 	@GetMapping("/list")
-	public String qnaListGet(QnaCriteria criteria, Model model) {
+	public String qnaListGet(Principal principal, QnaCriteria criteria, Model model) {
 		
 		log.info("==================== controller qnaList Get ====================");
 		
 		int total = qnaService.countQnaBoard();
 		
 		Map<String, Object> map = new HashMap<String, Object>();
+		
+		if(principal != null) {
+			MemberDTO memberInfo = memberService.selectMemberInfo(principal.getName());
+			
+			model.addAttribute("memberInfo", memberInfo);
+		}
 		
 		map.put("criteria", criteria);
 		map.put("total", qnaService.countQnaBoard());
@@ -116,7 +122,7 @@ public class QnaController {
 		QnaDTO qnaInfo = qnaService.selectQnaInfo(qDto.getQna_no());
 		
 		List<ReplyDTO> replyList = replyService.selectReplyList(qDto.getQna_no());
-		
+
 		if(principal != null) {
 			MemberDTO memberInfo = memberService.selectMemberInfo(principal.getName());
 			

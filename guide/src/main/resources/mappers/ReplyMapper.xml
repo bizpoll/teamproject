@@ -17,7 +17,10 @@
 								    ,#{qna_no}
 								    ,#{member_id}
 								  )
-	
+		<selectKey keyProperty="qna_reply_no" resultType="String" order="AFTER">
+			SELECT seq_qna_reply.currval 
+			FROM dual
+		</selectKey>
 	</insert>
 	
 	<!-- 해당 게시글의 모든 댓글 출력 -->
@@ -63,13 +66,23 @@
 	</update>
 	
 	<!-- qna 댓글 삭제 -->
-	<delete id="delectReplyBoard" parameterType="String">
+	<delete id="deleteReplyBoard" parameterType="String">
 		
 		DELETE   
 		
 		FROM    tbl_qna_reply
 		
 		WHERE   qna_reply_no = #{qna_reply_no}
+	
+	</delete>
+	
+	<delete id="deleteAllReplyBoard" parameterType="String">
+		
+		DELETE   
+		
+		FROM    tbl_qna_reply
+		
+		WHERE   qna_no = #{qna_no}
 	
 	</delete>
 	

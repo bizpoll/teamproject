@@ -11,9 +11,9 @@ public interface IReplyService {
 	
 	public List<ReplyDTO> selectReplyList(String qna_no);      		 	 // 해당 게시글의 모든 댓글 출력
 	
-	public QnaDTO selectReplyInfo(String qna_reply_no);          	 	 // qna 댓글 상세글
+	public ReplyDTO selectReplyInfo(String qna_reply_no);          	 	 // qna 댓글 상세글
 	
 	public boolean updateReplyBoard(ReplyDTO rDto);              			 // qna 댓글 수정
 
-	public boolean delectReplyBoard(String qna_reply_no);              		 // qna 댓글 삭제
+	public boolean delectReplyBoard(ReplyDTO rDto);              		 // qna 댓글 삭제
 }

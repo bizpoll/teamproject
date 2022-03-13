@@ -164,7 +164,7 @@
  	</update>
  	
  	<!-- QNA 게시글 삭제 -->
- 	<delete id="delectQnaBoard" parameterType="String">
+ 	<delete id="deleteQnaBoard" parameterType="String">
  		DELETE  
  		
  		FROM    tbl_qna
@@ -172,4 +172,24 @@
  		WHERE   qna_no = #{qna_no}
  	</delete>
  	
+ 	<!-- QNA 댓글 존재 여부 변경 -->
+ 	<update id="updateQnaExist" parameterType="kr.co.guide.qna.domain.QnaDTO">
+ 		UPDATE   tbl_qna
+ 		
+ 		SET      qna_reply_exist = #{qna_reply_exist}
+ 		
+ 		WHERE    qna_no = #{qna_no}
+ 	</update>
+ 	
+ 	<!-- QNA 비밀글 비밀번호 일치 여부확인 -->
+	<select id="selectQnaPasswordCheck" parameterType="kr.co.guide.qna.domain.QnaDTO" resultType="kr.co.guide.qna.domain.QnaDTO">
+		SELECT  qna_no
+		
+		FROM    tbl_qna
+		
+		WHERE   qna_no = #{qna_no}
+		
+		AND     qna_password = #{qna_password}
+	
+	</select> 	
 </mapper>

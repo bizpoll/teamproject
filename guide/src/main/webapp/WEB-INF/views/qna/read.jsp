@@ -385,11 +385,7 @@
 					alert("댓글이 삭제되었습니다");
 					$("#" + qna_reply_no).remove();
 					
-				},
-				error : function(request, error) {                                     
-			        alert("에러"); 
-			        alert("status : " + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-			    },
+				}
 			});
 		});
 		

@@ -248,11 +248,7 @@
 						return false;
 					}
 					
-				},
-				error : function(request, error) {                                     
-			        alert("에러"); 
-			        alert("status : " + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-			    }
+				}
 			});
 			
 			

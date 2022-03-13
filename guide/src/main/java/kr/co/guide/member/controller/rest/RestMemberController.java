@@ -43,8 +43,8 @@ public class RestMemberController {
 		
 		log.info("==================== restControlle duplicateCheck Post ====================");
 		
-		System.out.println("member_id는요 : " + mDto.getMember_id());
-		System.out.println("member_id는요 : " + mDto.getMember_nickname());
+		//System.out.println("member_id는요 : " + mDto.getMember_id());
+		//System.out.println("member_id는요 : " + mDto.getMember_nickname());
 		
 		String duplicateCheck = memberService.selectDuplicateCheck(mDto);
 		

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kr.co.guide.travel.domain.AreaDTO;
 import kr.co.guide.travel.service.AreaService;
 
 @Controller
@@ -19,8 +20,8 @@ public class ScheduleController {
    private AreaService service;
    
    @GetMapping("/schedule")
-   public void scheduling(Model model) throws Exception {
+   public void scheduling(AreaDTO aDto, Model model) throws Exception {
       logger.info("schedule get...........");
-      model.addAttribute("tour", service.tourList());
+      model.addAttribute("tour", service.tourList(aDto));
    }
 }

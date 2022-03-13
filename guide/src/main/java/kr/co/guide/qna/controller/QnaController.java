@@ -18,7 +18,9 @@ import kr.co.guide.member.service.IMemberService;
 import kr.co.guide.qna.domain.QnaCriteria;
 import kr.co.guide.qna.domain.QnaDTO;
 import kr.co.guide.qna.domain.QnaPageDTO;
+import kr.co.guide.qna.domain.ReplyDTO;
 import kr.co.guide.qna.service.IQnaService;
+import kr.co.guide.qna.service.IReplyService;
 import lombok.extern.log4j.Log4j;
 
 @Controller
@@ -32,17 +34,25 @@ public class QnaController {
 	@Autowired
 	private IQnaService qnaService;
 	
+	@Autowired
+	private IReplyService replyService;
 	
 	
 	//qna 게시판 이동
 	@GetMapping("/list")
-	public String qnaListGet(QnaCriteria criteria, Model model) {
+	public String qnaListGet(Principal principal, QnaCriteria criteria, Model model) {
 		
 		log.info("==================== controller qnaList Get ====================");
 		
 		int total = qnaService.countQnaBoard();
 		
 		Map<String, Object> map = new HashMap<String, Object>();
+		
+		if(principal != null) {
+			MemberDTO memberInfo = memberService.selectMemberInfo(principal.getName());
+			
+			model.addAttribute("memberInfo", memberInfo);
+		}
 		
 		map.put("criteria", criteria);
 		map.put("total", qnaService.countQnaBoard());
@@ -103,7 +113,7 @@ public class QnaController {
 	
 	//qna 상세글 페이지 이동
 	@GetMapping("/read")
-	public String qnaReadGet(QnaDTO qDto, QnaCriteria criteria, Model model) {
+	public String qnaReadGet(QnaDTO qDto, QnaCriteria criteria, Principal principal, Model model) {
 		
 		log.info("==================== controller qnaRead Get ====================");
 		
@@ -111,7 +121,17 @@ public class QnaController {
 		
 		QnaDTO qnaInfo = qnaService.selectQnaInfo(qDto.getQna_no());
 		
-		model.addAttribute("qnaInfo", qnaInfo);
+		List<ReplyDTO> replyList = replyService.selectReplyList(qDto.getQna_no());
+
+		if(principal != null) {
+			MemberDTO memberInfo = memberService.selectMemberInfo(principal.getName());
+			
+			model.addAttribute("memberInfo", memberInfo);
+		}
+		
+		model.addAttribute("qnaInfo", qnaInfo);     //qna 게시판
+
+		model.addAttribute("replyList", replyList); //댓글 게시판
 		
 		model.addAttribute("criteria", criteria);
 		

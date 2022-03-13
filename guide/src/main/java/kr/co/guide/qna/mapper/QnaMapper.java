@@ -15,7 +15,11 @@ public interface QnaMapper {
 	
 	public int updateQnaBoard(QnaDTO qDto);              			 // qna 게시글 수정
 
-	public int delectQnaBoard(String qna_no);              			 // qna 게시글 삭제
+	public int deleteQnaBoard(String qna_no);              			 // qna 게시글 삭제
 	
 	public int countQnaBoard();                                      // qna 총 갯수 출력
+	
+	public int updateQnaExist(QnaDTO qDto);               			 // qan에 댓글 존재 여부 변경
+	
+	public QnaDTO selectQnaPasswordCheck(QnaDTO qDto);               // qan의 비밀번호 일치 여부 확인
 }

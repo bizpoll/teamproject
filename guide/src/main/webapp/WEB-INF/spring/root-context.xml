@@ -74,6 +74,7 @@
 	<mybatis-spring:scan base-package="kr.co.guide.admin.mapper"/>
 	<mybatis-spring:scan base-package="kr.co.guide.member.mapper"/>
 	<mybatis-spring:scan base-package="kr.co.guide.qna.mapper"/>
+	<mybatis-spring:scan base-package="kr.co.guide.travel.mapper"/>
 
 	
 	

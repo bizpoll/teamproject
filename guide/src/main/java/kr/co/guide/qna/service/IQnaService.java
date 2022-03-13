@@ -18,4 +18,7 @@ public interface IQnaService {
 	public boolean delectQnaBoard(String qna_no);              		 // qan 게시글 삭제
 	
 	public int countQnaBoard();                                    	 // qna 총 갯수 출력
+	
+	public QnaDTO selectQnaPasswordCheck(QnaDTO qDto);               // qan의 비밀번호 일치 여부 확인
+	
 }

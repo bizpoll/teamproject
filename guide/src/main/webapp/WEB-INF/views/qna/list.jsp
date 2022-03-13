@@ -4,9 +4,25 @@
 
 	
 <%@ include file="../common/cssLink.jsp"%>
+<style type="text/css">
+		
+		<%-- 페이징 --%>
+		.page-item.active .page-link{
+			  z-index: 3;
+			  background-color: #cccccc;
+			  border-color: #cccccc;
+			  color: black;
+			  z-index: 3;
+		}
+		
+		.page-link {
+			color : black
+		}
+		
+</style>	
+
 <body>
 <%@ include file="../common/mainheader.jsp"%>
-	
 
 <%-- 바디 시작 --%>
 		<div class="container-fluid">
@@ -57,12 +73,78 @@
 										      </td>
 										      
 										      <td>
-										      	<a href="${contextPath}/qna/read?pageNum=${criteria.pageNum}&qna_no=${qnaList.qna_no}"  class="text-dark text-decoration-none">
-											      	${qnaList.qna_title ne "1" ? qnaList.qna_title ne "2" ? "기타 문의" : "일정 문의" : "계정 문의"} 
-										      	</a>
-										      	<c:if test='${qnaList.qna_secret eq "Y"}'>
-											      	&nbsp;<i class="bi bi-lock-fill"></i> 
-										      	</c:if>
+										    <%-- 비회원이 접근한 경우 --%> 	
+										    <sec:authorize access="isAnonymous()">
+										    	
+										    	<c:choose>
+										    		<c:when test="${qnaList.qna_secret eq 'Y'}">
+										    			<a href="${contextPath}/qna/read?pageNum=${criteria.pageNum}&qna_no=${qnaList.qna_no}"  class="text-dark text-decoration-none password-check" data-qna="${qnaList.qna_no}" data-page="${criteria.pageNum}">
+															${qnaList.qna_title ne "1" ? qnaList.qna_title ne "2" ? "기타 문의" : "일정 문의" : "계정 문의"} 
+														</a>
+														&nbsp;<i class="bi bi-lock-fill"></i> 
+										    		</c:when>
+										    		
+										    		<c:otherwise>
+										    			<a href="${contextPath}/qna/read?pageNum=${criteria.pageNum}&qna_no=${qnaList.qna_no}"  class="text-dark text-decoration-none" data-qna="${qnaList.qna_no}" data-page="${criteria.pageNum}">
+															${qnaList.qna_title ne "1" ? qnaList.qna_title ne "2" ? "기타 문의" : "일정 문의" : "계정 문의"} 
+														</a>
+										    		</c:otherwise>
+										    	
+										    	</c:choose>
+										    	
+											</sec:authorize>
+										
+										
+											<%-- 모든회원 로그인 상태 --%>
+									        <sec:authorize access="isAuthenticated()">
+										       
+										        
+										        <%-- 일반회원 로그인 상태 --%>
+										        <c:if test="${principal.authorities eq '[ROLE_MEMBER]'}">
+											       
+											       <c:choose>
+											       
+											       		<c:when test="${principal.username eq qnaList.qna_write }">
+											       			<a href="${contextPath}/qna/read?pageNum=${criteria.pageNum}&qna_no=${qnaList.qna_no}"  class="text-dark text-decoration-none" data-qna="${qnaList.qna_no}" data-page="${criteria.pageNum}">
+														      	${qnaList.qna_title ne "1" ? qnaList.qna_title ne "2" ? "기타 문의" : "일정 문의" : "계정 문의"} 
+													      	</a>
+														    <c:if test='${qnaList.qna_secret eq "Y"}'>
+														      	&nbsp;<i class="bi bi-lock-fill"></i> 
+													      	</c:if>
+											       		</c:when>
+											       		
+											       		<c:otherwise>
+											       			<c:choose>
+										    					<c:when test="${qnaList.qna_secret eq 'Y'}">
+														    		<a href="${contextPath}/qna/read?pageNum=${criteria.pageNum}&qna_no=${qnaList.qna_no}"  class="text-dark text-decoration-none password-check" data-qna="${qnaList.qna_no}" data-page="${criteria.pageNum}">
+																		${qnaList.qna_title ne "1" ? qnaList.qna_title ne "2" ? "기타 문의" : "일정 문의" : "계정 문의"} 
+																	</a>
+																	&nbsp;<i class="bi bi-lock-fill"></i> 
+													    		</c:when>
+													    		
+													    		<c:otherwise>
+													    			<a href="${contextPath}/qna/read?pageNum=${criteria.pageNum}&qna_no=${qnaList.qna_no}"  class="text-dark text-decoration-none" data-qna="${qnaList.qna_no}" data-page="${criteria.pageNum}">
+																		${qnaList.qna_title ne "1" ? qnaList.qna_title ne "2" ? "기타 문의" : "일정 문의" : "계정 문의"} 
+																	</a>
+													    		</c:otherwise>
+													    	
+													    	</c:choose>
+											       		</c:otherwise>
+											       </c:choose>
+										        </c:if>
+										        
+										        <%-- 관리자 로그인 상태 --%>
+										        <sec:authorize access="hasRole('ROLE_ADMIN')">
+											        <a href="${contextPath}/qna/read?pageNum=${criteria.pageNum}&qna_no=${qnaList.qna_no}"  class="text-dark text-decoration-none" data-qna="${qnaList.qna_no}" data-page="${criteria.pageNum}">
+														${qnaList.qna_title ne "1" ? qnaList.qna_title ne "2" ? "기타 문의" : "일정 문의" : "계정 문의"} 
+											      	</a>
+												    <c:if test='${qnaList.qna_secret eq "Y"}'>
+												      	&nbsp;<i class="bi bi-lock-fill"></i> 
+											      	</c:if>
+										        </sec:authorize>
+										        
+										        
+									        </sec:authorize>
 										      </td>
 										      <td>${empty qnaList.qna_write_name ? "비회원" : qnaList.qna_write_name}</td>
 										      <td><fmt:formatDate value="${qnaList.qna_regist_date}" pattern="yyyy-MM-dd"/></td>
@@ -127,6 +209,62 @@
 	
 <%@ include file="../common/mainfooter.jsp"%>
 <%@ include file="../common/jsLink.jsp"%>
+
+
+<script type="text/javascript">
+
 	
+	$(document).ready(function(){
+		
+		
+		var csrf_headername = "${_csrf.headerName}"; 
+		var csrf_token = "${_csrf.token}";
+		
+		<%-- 비밀번호 확인 기능 --%>
+		$(document).on("click",".password-check", function(e){
+			
+			e.preventDefault();
+			
+			var qna_no = $(this).data("qna");
+			var pageNum = $(this).data("page");
+			var qna_password = prompt("비밀번호를 입력해주세요.");
+			var form = {qna_no:qna_no, qna_password:qna_password }
+			$.ajax({
+				type : "post",
+				data :JSON.stringify(form),
+				dataType : "json",
+				url : "${contextPath}/qna/passwordCheck",
+				processData : true,                                                      
+				contentType: "application/json; charset-utf-8", 
+				beforeSend : function(xhr) {
+			        xhr.setRequestHeader(csrf_headername, csrf_token);
+			    },
+				success : function(data) {
+					
+					if(data) {
+						location.href = "${contextPath}/qna/read?pageNum=" + pageNum + "&qna_no=" + qna_no;
+					} else{
+						alert("비밀번호가 틀립니다.");
+						return false;
+					}
+					
+				}
+			});
+			
+			
+			
+		});
+		
+		
+		
+	});
+
+
+</script>
+
+
+
+
+
 </body>
 </html>

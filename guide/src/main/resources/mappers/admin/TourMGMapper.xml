@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.guide.admin.mapper.TourMGMapper">
+
+	<select id="read" resultType="kr.co.guide.admin.domain.TourDTO">
+		SELECT *
+		FROM tbl_tour
+		WHERE tour_no = #{tour_no}
+	</select>
+
+	<!-- 
+	 	<sql id="criteria">
+		<trim prefix="(" suffix=") AND" prefixOverrides="OR" >
+			<foreach collection="typeArr" item="type">
+				<trim prefix="OR">
+					<choose>
+						<when test="type == 'd'.toString()">
+							depr = #{keyword}
+						</when>
+						<when test="type == 'a'.toString()">
+							arvl = #{keyword}
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+	 -->
+	 
+  	<select id="getListWithPaging" resultType="kr.co.guide.admin.domain.TourDTO">
+  	<![CDATA[
+		SELECT *
+		FROM (SELECT DISTINCT /*+ INDEX_ASC(tbl_tour PK_TBL_TOUR) */
+			    rownum rn,
+			    tour_no,
+			    tour_title,
+			    tour_content,
+			    tour_zipcode,
+			    tour_address,
+			    tour_type,
+			    tour_image,
+			    tour_thumbnail,
+			    tour_category1,
+			    tour_category2,
+			    tour_category3,
+			    tour_mapx,
+			    tour_mapy,
+			    tour_maplevel,
+			    tour_homepage,
+			    tour_count,
+			    t.area_code,
+			    t.area_detail_code,
+			    
+			    area_name,
+			    area_detail_name
+			    
+			    
+			FROM tbl_tour t
+			JOIN tbl_area a
+			ON t.area_code = a.area_code
+			WHERE t.area_detail_code = a.area_detail_code 
+		AND 
+		]]>
+<!-- 		<include refid="criteria"></include> -->
+		<![CDATA[
+			rownum <= #{pageNum} * #{amount})
+			WHERE rn > (#{pageNum} - 1) * #{amount}	
+		]]>
+  	</select>
+  	
+	<select id="getTotalCnt" resultType="int">
+  		SELECT COUNT(*)
+  		FROM tbl_tour
+  		WHERE 
+  		tour_no > 0
+  	</select> 
+  	
+  	
+  	<delete id="delete">
+  		DELETE FROM tbl_tour
+  		WHERE tour_no = #{tour_no}
+  	</delete>
+
+</mapper>
+
+
+
+

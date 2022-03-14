@@ -1,14 +1,20 @@
 package kr.co.guide.admin.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.guide.admin.domain.MemberDTO;
 import kr.co.guide.admin.service.IMemberMGService;
 import lombok.extern.log4j.Log4j;
 
@@ -60,12 +66,21 @@ public class MemberMGController {
 	}
 	
 	//중복 체크 기능 confirmNick
-	@RequestMapping(value = "/confirmNick", method = RequestMethod.POST)	
-	public int confirmNick(@RequestBody String member_nickname) throws Exception {
+	@PostMapping(value = "/confirmNick", consumes = "application/json", produces = { MediaType.TEXT_PLAIN_VALUE })
+	public ResponseEntity<String> confirmNick(@RequestBody String member_nickname) throws Exception {
+		log.info("userid............................................ : " + member_nickname);
+
+		return service.confirmNick(member_nickname) == 0 ? new ResponseEntity<String>("0", HttpStatus.OK)
+				: new ResponseEntity<String>("1", HttpStatus.OK);
+	}
+	
+	//수정 기능 실행
+	@RequestMapping(value = "/memberModifyPost", method = RequestMethod.POST)
+	public String memberModifyPost(MemberDTO mDto) throws Exception {
+		log.info("memberModifyPost.............." + service.modify(mDto));	
 		
-		log.info("confirmNick..............");	
 		
-		return service.confirmNick(member_nickname);
+		return "admin/memberMG/memberModify";
 	}
 
 	

@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kr.co.guide.admin.domain.MemberDTO;
@@ -16,6 +17,9 @@ public class MemberMGService implements IMemberMGService{
 	
 	@Autowired
 	private MemberMGMapper mapper;
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 	
 	private static final Logger log = LoggerFactory.getLogger(MemberMGService.class);
 
@@ -58,6 +62,14 @@ public class MemberMGService implements IMemberMGService{
 	@Override
 	public int confirmNick(String member_nickname) throws Exception {
 		return mapper.confirmNick(member_nickname);
+	}
+
+	@Override
+	public int modify(MemberDTO mDto) throws Exception {
+		if(mDto.getMember_password() != "") {
+			mDto.setMember_password(passwordEncoder.encode(mDto.getMember_password()));
+		}
+		return mapper.update(mDto);
 	}
 	
 

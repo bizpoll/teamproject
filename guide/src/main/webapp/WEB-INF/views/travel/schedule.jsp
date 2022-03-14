@@ -269,7 +269,7 @@
       <div class="" id="map" style="width: 100%; height: 100%; z-index: 1"></div>
       <div class="d-flex justify-content-between position-absolute top-0 start-50 translate-middle-x p-3" style="width: 100%; z-index: 10">
          <span>
-            <button type="button" class="btn btn-light">일정 생성</button>
+            <button type="button" class="btn btn-light" id="schedule_create">일정 생성</button>
          </span>
          <span>
             <button type="button" class="btn btn-light">추천 명소</button>
@@ -293,6 +293,7 @@
       
 		<div class="overflow-scroll selPlace" style="height: 50em;">
 			<c:forEach items="${tour}" var="tour">
+				<input type="hidden" value="${tour.tour_no}" id="tour_no">
 <%-- 				<input type="hidden" name="area_code" value="${tour.area_code }"> --%>
 <%-- 				<input type="hidden" name="area_detail_code" value="${tour.area_detail_code }"> --%>
 				<div class="d-flex justify-content-between shadow m-2 p-2 itemBox tourType${tour.tour_type}" style="height: 5em;">
@@ -630,7 +631,31 @@
 		$(".modalBox img").attr("src", imgSrc);
 		
 	});
-	
+</script>
+<script>	
+	$('#schedule_create').click(function() { 
+		console.log("add schedule.......................");
+
+		$.ajax({
+			type : "get",
+			url : "/guide/travel/new",
+			data :{"schedule_start" : $('#startDate').val(),
+				   "schedule_end" : $('#endDate').val(),
+				   "member_id" : 'user3@naver.com',
+				   "schedule_day" : $('#days').val(),
+				   "schedule_order" : $('.itemNum').val(),
+				   "tour_no" : $('#tour_no').val()},
+			contentType : "application/json; charset=utf-8",
+			success : function () { 
+					alert("success!") 
+					location.reload();
+			},
+			error : function() {
+				console.log("error");				
+				alert("error!")
+			}
+		});
+	});
 </script>
 </body>
 </html>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.guide.travel.mapper.ScheduleMapper">
+
+<insert id="screate" parameterType="kr.co.guide.travel.domain.ScheduleDTO">
+	INSERT INTO tbl_schedule(schedule_no, schedule_start, schedule_end, 
+							schedule_recommend, schedule_viewcount, member_id)
+	VALUES(seq_schedule.nextval, #{schedule_start}, #{schedule_end}
+			, #{schedule_recommend}, #{schedule_viewcount}, #{member_id})
+</insert>
+
+<insert id="sdcreate" parameterType="kr.co.guide.travel.domain.ScheduleDetailDTO">
+	<selectKey keyProperty="schedule_no" resultType="int" order="BEFORE">  
+		select seq_schedule.nextval FROM dual
+	</selectKey>
+	INSERT INTO tbl_schedule(schedule_day, schedule_order, schedule_no, tour_no)
+	VALUES(#{schedule_day}, #{schedule_order}, #{schedule_no}, #{tour_no})
+</insert>
+
+</mapper>

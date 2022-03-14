@@ -197,90 +197,88 @@
    
 <%-- 바디 시작 --%>
 <div class="row g-0">
-	<form action="">
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-		<div class="col-lg-2 text-center p-0" style="height: 100%">
-		   <div class="city pt-2 mb-3">
-		      <h2 class="fw-bold">제주도</h2>
-		      <h5 class="text-secondary">JEJU</h5>
-		      <div class="mt-3">
-		         <h4 style="font-weight: bold;">
-		            <input type="hidden" id="days">
-		            <span id="daysLabel">0</span>&nbsp;DAY
-		         </h4>
-		         <input type="text" class="testDatepicker" id="startDate" name="schedule_start" onchange="call()" placeholder="출발일 선택">
-		         ~
-		         <input type="text" class="testDatepicker" id="endDate" name="schedule_end" onchange="call()" placeholder="도착일 선택">
-		      </div>
-		      <div class="addInput">
-		      </div>
+<%-- 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> --%>
+	<form class="col-lg-2 text-center p-0" style="height: 100%">
+		<div class="city pt-2 mb-3">
+		   <h2 class="fw-bold">제주도</h2>
+		   <h5 class="text-secondary">JEJU</h5>
+		   <div class="mt-3">
+		      <h4 style="font-weight: bold;">
+		         <input type="hidden" id="days">
+		         <span id="daysLabel">0</span>&nbsp;DAY
+		      </h4>
+		      <input type="text" class="testDatepicker" id="startDate" name="schedule_start" onchange="call()" placeholder="출발일 선택">
+		      ~
+		      <input type="text" class="testDatepicker" id="endDate" name="schedule_end" onchange="call()" placeholder="도착일 선택">
 		   </div>
-		   <div class="scheduling">
+		   <div class="addInput">
+		   </div>
+		</div>
+		<div class="scheduling">
 		<!--          <h6 class="m-3"><i class="bi bi-list-check"></i>&nbsp;선택목록</h6> -->
-		      <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
-		         <li class="nav-item first-tab" role="presentation">
-		            <button class="nav-link active" id="pills-first-tab"
-		               data-bs-toggle="pill" data-bs-target="#pills-first" type="button"
-		               role="tab" aria-controls="pills-first" aria-selected="true">1일차</button>
-		         </li>
-		         <li class="nav-item second-tab" role="presentation">
-		            <button class="nav-link" id="pills-second-tab"
-		               data-bs-toggle="pill" data-bs-target="#pills-second"
-		               type="button" role="tab" aria-controls="pills-second"
-		               aria-selected="false">2일차</button>
-		         </li>
-		         <li class="nav-item third-tab" role="presentation">
-		            <button class="nav-link" id="pills-third-tab"
-		               data-bs-toggle="pill" data-bs-target="#pills-third"
-		               type="button" role="tab" aria-controls="pills-third"
-		               aria-selected="false">3일차</button>
-		         </li>
-		         <li class="nav-item fourth-tab" role="presentation">
-		            <button class="nav-link" id="pills-fourth-tab"
-		               data-bs-toggle="pill" data-bs-target="#pills-fourth"
-		               type="button" role="tab" aria-controls="pills-fourth"
-		               aria-selected="false">4일차</button>
-		         </li>
-		      </ul>
-		      <div class="tab-content overflow-scroll" id="pills-tabContent" style="height: 41em;">
-		         <div class="tab-pane fade show active" id="pills-first" role="tabpanel" aria-labelledby="pills-first-tab">
-		            <div class="itemBoxWrap">
-		               <input type="hidden" class="addPlace">
-		            </div>
+		  <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
+		     <li class="nav-item first-tab" role="presentation">
+		        <button class="nav-link active" id="pills-first-tab"
+		           data-bs-toggle="pill" data-bs-target="#pills-first" type="button"
+		           role="tab" aria-controls="pills-first" aria-selected="true">1일차</button>
+		     </li>
+		     <li class="nav-item second-tab" role="presentation">
+		        <button class="nav-link" id="pills-second-tab"
+		           data-bs-toggle="pill" data-bs-target="#pills-second"
+		           type="button" role="tab" aria-controls="pills-second"
+		           aria-selected="false">2일차</button>
+		     </li>
+		     <li class="nav-item third-tab" role="presentation">
+		        <button class="nav-link" id="pills-third-tab"
+		           data-bs-toggle="pill" data-bs-target="#pills-third"
+		           type="button" role="tab" aria-controls="pills-third"
+		           aria-selected="false">3일차</button>
+		     </li>
+		     <li class="nav-item fourth-tab" role="presentation">
+		        <button class="nav-link" id="pills-fourth-tab"
+		           data-bs-toggle="pill" data-bs-target="#pills-fourth"
+		           type="button" role="tab" aria-controls="pills-fourth"
+		           aria-selected="false">4일차</button>
+		     </li>
+		  </ul>
+		  <div class="tab-content overflow-scroll" id="pills-tabContent" style="height: 41em;">
+		      <div class="tab-pane fade show active" id="pills-first" role="tabpanel" aria-labelledby="pills-first-tab">
+		         <div class="itemBoxWrap">
+		            <input type="hidden" class="addPlace">
 		         </div>
-		         <div class="tab-pane fade" id="pills-second" role="tabpanel" aria-labelledby="pills-second-tab">
-		            <div class="itemBoxWrap">
-		               <input type="hidden" class="addPlace">
-		            </div>
+		      </div>
+		      <div class="tab-pane fade" id="pills-second" role="tabpanel" aria-labelledby="pills-second-tab">
+		         <div class="itemBoxWrap">
+		            <input type="hidden" class="addPlace">
 		         </div>
-		         <div class="tab-pane fade" id="pills-third" role="tabpanel" aria-labelledby="pills-third-tab">
-		            <div class="itemBoxWrap">
-		               <input type="hidden" class="addPlace">
-		            </div>
+		      </div>
+		      <div class="tab-pane fade" id="pills-third" role="tabpanel" aria-labelledby="pills-third-tab">
+		         <div class="itemBoxWrap">
+		            <input type="hidden" class="addPlace">
 		         </div>
-		         <div class="tab-pane fade" id="pills-fourth" role="tabpanel" aria-labelledby="pills-fourth-tab">
-		            <div class="itemBoxWrap">
-		               <input type="hidden" class="addPlace">
-		            </div>
+		      </div>
+		      <div class="tab-pane fade" id="pills-fourth" role="tabpanel" aria-labelledby="pills-fourth-tab">
+		         <div class="itemBoxWrap">
+		            <input type="hidden" class="addPlace">
 		         </div>
 		      </div>
 		   </div>
 		</div>
 	</form>
    
-   <div class="col-lg-8 position-relative">
-      <div class="" id="map" style="width: 100%; height: 100%; z-index: 1"></div>
-      <div class="d-flex justify-content-between position-absolute top-0 start-50 translate-middle-x p-3" style="width: 100%; z-index: 10">
-         <span>
-            <button type="button" class="btn btn-light">일정 생성</button>
-         </span>
-         <span>
-            <button type="button" class="btn btn-light">추천 명소</button>
-            <button type="button" class="btn btn-light">추천 음식점</button>
-            <button type="button" class="btn btn-light">추천 호텔</button>
-         </span>
-      </div>
-   </div>
+	<div class="col-lg-8 position-relative">
+	   <div class="" id="map" style="width: 100%; height: 100%; z-index: 1"></div>
+	   <div class="d-flex justify-content-between position-absolute top-0 start-50 translate-middle-x p-3" style="width: 100%; z-index: 10">
+	      <span>
+	         <button type="button" class="btn btn-light">일정 생성</button>
+	      </span>
+	      <span>
+	         <button type="button" class="btn btn-light">추천 명소</button>
+	         <button type="button" class="btn btn-light">추천 음식점</button>
+	         <button type="button" class="btn btn-light">추천 호텔</button>
+	      </span>
+	   </div>
+	</div>
    
 	<div class="col-lg-2 text-center p-0">
 		<div class="placeSearch mt-2">
@@ -301,6 +299,7 @@
 				<div class="d-flex justify-content-between shadow m-2 p-2 itemBox placeHoverRight" style="height: 5em;">
 					<input type="hidden" class="itemNum" name="schedule_order"/>
 					<input type="hidden" class="schedule_day" name="schedule_day"/>
+					<input type="hidden" class="tour_no" name="tour_no" value="${tour.tour_no}"/>
 					<input type="hidden" class="tourType" data-tourtype="${tour.tour_type}"/>
 					<input type="hidden" class="mapxVal" data-mapx="${tour.tour_mapx}"/>
 					<input type="hidden" class="mapyVal" data-mapy="${tour.tour_mapy}"/>
@@ -360,7 +359,7 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 					<div class="modalBox">
-						<img alt="장소이미지" src="" style="width: 200px; height: 146px;float: left;">
+						<img alt="장소이미지" src="" style="width: 200px; height: 146px; float: left;">
 					</div>
 					<div>
 						<h6 class="modal-title" id="myModalLabel"></h6>
@@ -733,9 +732,7 @@
 		e.preventDefault();
 		$('div#myModal').modal("show");
 		
-		var imgSrc = $('img#p_image').attr("src");
-	
-		console.log(imgSrc);
+		var imgSrc = $(this).parent().parent().parent().prev("#p_image").attr("src");
 		
 		$(".modal-title").text($(this).parent().prevAll("span.ellipsis").text());
 		$(".modalBox img").attr("src", imgSrc);

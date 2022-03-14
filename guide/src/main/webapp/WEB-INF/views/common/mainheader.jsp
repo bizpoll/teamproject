@@ -45,7 +45,7 @@
 				        <%-- 관리자 로그인 상태 --%>
 				        <sec:authorize access="hasRole('ROLE_ADMIN')">
 					        <li class="nav-item">
-								<a class="nav-link text-dark" href="${contextPath}/adHome">관리자페이지</a>
+								<a class="nav-link text-dark" href="${contextPath}/admin/adHome">관리자페이지</a>
 							</li>
 				        </sec:authorize>
 				        

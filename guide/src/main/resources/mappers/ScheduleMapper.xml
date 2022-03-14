@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.guide.travel.mapper.ScheduleMapper">
+	<insert id="insert" parameterType="kr.co.guide.travel.domain.ScheduleDTO">
+		INSERT INTO tbl_schedule(schedule_no, schedule_start, schedule_end, member_id)
+		VALUES(seq_schedule.nextval, #{schedule_start}, #{schedule_end}, #{member_id})
+	</insert>
+</mapper>

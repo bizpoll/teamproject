@@ -638,7 +638,7 @@
 
 		$.ajax({
 			type : "get",
-			url : "/guide/travel/new",
+			url : "http://services.xmethods.net:80/travel/new",
 			data :{"schedule_start" : $('#startDate').val(),
 				   "schedule_end" : $('#endDate').val(),
 				   "member_id" : 'user3@naver.com',
@@ -647,12 +647,11 @@
 				   "tour_no" : $('#tour_no').val()},
 			contentType : "application/json; charset=utf-8",
 			success : function () { 
-					alert("success!") 
+					alert("일정이 생성되었습니다!") 
 					location.reload();
 			},
 			error : function() {
 				console.log("error");				
-				alert("error!")
 			}
 		});
 	});

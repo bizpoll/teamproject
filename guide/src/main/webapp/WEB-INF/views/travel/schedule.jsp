@@ -197,8 +197,9 @@
    
 <%-- 바디 시작 --%>
 <div class="row g-0">
-<%-- 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> --%>
-	<form class="col-lg-2 text-center p-0" style="height: 100%">
+	<form action="#" method="post" id="scheduleFrm" class="col-lg-2 text-center p-0" style="height: 100%">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		<input type="hidden" name="member_id" value="user1@naver.com">
 		<div class="city pt-2 mb-3">
 		   <h2 class="fw-bold">제주도</h2>
 		   <h5 class="text-secondary">JEJU</h5>
@@ -270,7 +271,7 @@
 	   <div class="" id="map" style="width: 100%; height: 100%; z-index: 1"></div>
 	   <div class="d-flex justify-content-between position-absolute top-0 start-50 translate-middle-x p-3" style="width: 100%; z-index: 10">
 	      <span>
-	         <button type="button" class="btn btn-light">일정 생성</button>
+	         <button type="button" class="btn btn-light scheduleBtn">일정 생성</button>
 	      </span>
 	      <span>
 	         <button type="button" class="btn btn-light">추천 명소</button>
@@ -293,9 +294,9 @@
 		</ul>
       
 		<div class="overflow-scroll selPlace" style="height: 50em;">
-			<c:forEach items="${tour}" var="tour">
 <%-- 				<input type="hidden" name="area_code" value="${tour.area_code }"> --%>
 <%-- 				<input type="hidden" name="area_detail_code" value="${tour.area_detail_code }"> --%>
+			<c:forEach items="${tour}" var="tour">
 				<div class="d-flex justify-content-between shadow m-2 p-2 itemBox placeHoverRight" style="height: 5em;">
 					<input type="hidden" class="itemNum" name="schedule_order"/>
 					<input type="hidden" class="schedule_day" name="schedule_day"/>
@@ -303,8 +304,7 @@
 					<input type="hidden" class="tourType" data-tourtype="${tour.tour_type}"/>
 					<input type="hidden" class="mapxVal" data-mapx="${tour.tour_mapx}"/>
 					<input type="hidden" class="mapyVal" data-mapy="${tour.tour_mapy}"/>
-					<div class="d-flex align-items-center" style="width: 20%; background: url('${tour.tour_image}'); background-position: center; background-repeat: no-repeat; background-size:contain;">
-					</div>
+					<div class="d-flex align-items-center" style="width: 20%; background: url('${tour.tour_image}'); background-position: center; background-repeat: no-repeat; background-size:contain;"></div>
 					<img alt="모달 이미지" src="${tour.tour_image }" style="display: none;" id="p_image">
 					<div class="align-self-center text-start" style="width: 80%; padding-left: 0.5em">
 						<p class="d-flex justify-content-between mb-1" style="width: 100%">
@@ -434,10 +434,13 @@
        
 		if (days == 1) {
 			$(".first-tab").show();
+			$(".second-tab, .third-tab, .fourth-tab").hide();
 		} else if (days == 2) {
 			$(".first-tab, .second-tab").show();
+			$(".third-tab, .fourth-tab").hide();
 		} else if (days == 3) {
 			$(".first-tab, .second-tab, .third-tab").show();
+			$(".fourth-tab").hide();
 		} else if (days >= 4) {
 			$(".first-tab, .second-tab, .third-tab, .fourth-tab").show();
 		}
@@ -684,6 +687,11 @@
 	    	overlays[i].setMap(map);
 	    }            
 	}
+	
+	$(".scheduleBtn").click(function() {
+		$("#scheduleFrm").attr("action", "${contextPath}/travel/scheduleInsert");
+		$("#scheduleFrm").submit();
+	});
    
    /* ------- 검색부분 ------- */
 	$('ul.tabs li').click(function(){

@@ -12,4 +12,6 @@ public class AreaDTO {
 	private String area_name;
 	private String area_detail_name;
 	private int area_count;
+	private double area_latitude; // 위도
+	private double area_longitude; // 경도
 }

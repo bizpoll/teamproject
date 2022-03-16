@@ -10,4 +10,9 @@
 		WHERE area_code = 5
 		AND area_detail_code = 4
 	</select>
+	
+	<select id="areaList" resultType="kr.co.guide.travel.domain.AreaDTO">
+		SELECT *
+		FROM tbl_area
+	</select>
 </mapper>

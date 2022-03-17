@@ -70,7 +70,7 @@
             
             
             <!-- Nav Item - 여행지 관리(tourMG) -->
-            <li class="nav-item">
+<%--             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsTourMG"
                     aria-expanded="true" aria-controls="collapsTourMG">
                     <span>여행지 관리</span>
@@ -81,10 +81,30 @@
                         <a class="collapse-item" href="${contextPath}/admin/tourMG/tourList">여행지 목록</a>
                     </div>
                 </div>
+            </li> --%>
+            <li class="nav-item">
+	            <a class="nav-link" href="${contextPath}/admin/tourMG/tourList">
+	            	<span>여행지 관리</span> 
+	            </a>
             </li>
             
-            <!-- Nav Item - 관리자 관리(adminMG) -->
+            
+            <!-- Nav Item - 문의글 관리(qnaMG) -->
             <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsQnaMG"
+                    aria-expanded="true" aria-controls="collapsQnaMG">
+                    <span>문의글 관리</span>
+                </a>
+                <div id="collapsQnaMG" class="collapse" aria-labelledby="headingQnaMG" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="${contextPath}/admin/qnaMG/qnaList">문의글 전체 목록</a>
+                    </div>
+                </div>
+            </li>
+            
+            
+            <!-- Nav Item - 관리자 관리(adminMG) -->
+<%--             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsAdminMG"
                     aria-expanded="true" aria-controls="collapsAdminMG">
                     <span>관리자 관리</span>
@@ -94,6 +114,12 @@
                         <a class="collapse-item" href="${contextPath}/admin/adminMG/adminList">관리자 목록</a>
                     </div>
                 </div>
+            </li> --%>
+            
+            <li class="nav-item">
+	            <a class="nav-link" href="${contextPath}/admin/adminMG/adminList">
+	            	<span>관리자 관리</span> 
+	            </a>
             </li>
             
 

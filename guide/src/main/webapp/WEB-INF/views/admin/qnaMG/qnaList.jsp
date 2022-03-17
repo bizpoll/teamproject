@@ -16,6 +16,12 @@
 label {
     display: block;
 }
+
+.qnaDto:hover {
+	background-color: #CCE5FF;
+	cursor: pointer;
+}
+
 </style>
 
 </head>
@@ -26,28 +32,29 @@ label {
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">TBL_MEMBER</h1>
-                    <p class="mb-4">회원 목록</p>
+                    <h1 class="h3 mb-2 text-gray-800">TBL_QNA</h1>
+                    <p class="mb-4">문의글 목록</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">회원 정보</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Q & A</h6>
                         </div>
                         <div class="card-body">
                         
                         
                         <!-- 검색 -->
-                        <div id="dataTable_filter" class="dataTables_filter">
-                        <form id="searchForm" action="#" method="get">
+                      <div id="dataTable_filter" class="dataTables_filter">
+                        <form id="searchForm" action="#" method="post">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 							<label>Search <br>
 							검색 유형: &nbsp;
 							<select name="type" id="type" class="form-control form-control-sm" aria-controls="dataTable" style="width: 10%;">
-								<option selected value="ENI" <c:out value="${pageMaker.cri.type == 'ENI' ? 'selected' : ''}" />>--------</option>
-								<option value="E" <c:out value="${pageMaker.cri.type == 'E' ? 'selected' : ''}" />>이메일</option>
+								<option selected value="QTEN" <c:out value="${pageMaker.cri.type == 'QTEN' ? 'selected' : ''}" />>--------</option>
+								<option value="Q" <c:out value="${pageMaker.cri.type == 'Q' ? 'selected' : ''}" />>글 번호</option>
+								<option value="T" <c:out value="${pageMaker.cri.type == 'T' ? 'selected' : ''}" />>제목</option>
+								<option value="E" <c:out value="${pageMaker.cri.type == 'E' ? 'selected' : ''}" />>아이디</option>
 								<option value="N" <c:out value="${pageMaker.cri.type == 'N' ? 'selected' : ''}" />>이름</option>
-								<option value="I" <c:out value="${pageMaker.cri.type == 'I' ? 'selected' : ''}" />>닉네임</option>
-								<option value="L" <c:out value="${pageMaker.cri.type == 'L' ? 'selected' : ''}" />>잠금</option>
 							</select>
 							
 							<input type="search" name="keyword" placeholder="Search" value="${pageMaker.cri.keyword}" class="form-control form-control-sm" placeholder="" aria-controls="dataTable" style="width: 29%;">
@@ -56,7 +63,8 @@ label {
 							<button class="btn btn-default" id="searchBtn"><i class="fa fa-search"></i>검색</button>
 							</label>
 						</form>
-						</div> <!-- End 검색 -->
+						</div>  
+						<!-- End 검색 -->
                         
                         
                         
@@ -65,57 +73,51 @@ label {
                                 <table class="table table-bordered" id="#" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>이메일</th>
-                                            <th>이름</th>
-                                            <th>닉네임</th>
-                                            <th>가입일</th>
-                                            <th>잠금</th>
-                                            <th>설정</th>
+                                            <th>글 번호</th>
+                                            <th>제목</th>
+                                            <th>작성자 아이디</th>
+                                            <th>작성자 이름</th>
+                                            <th>등록일</th>
+                                            <th>답변</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>이메일</th>
-                                            <th>이름</th>
-                                            <th>닉네임</th>
-                                            <th>가입일</th>
-                                            <th>잠금</th>
-                                            <th>설정</th>
+                                            <th>글 번호</th>
+                                            <th>제목</th>
+                                            <th>작성자 아이디</th>
+                                            <th>작성자 이름</th>
+                                            <th>등록일</th>
+                                            <th>답변</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                     	<c:choose>
-										<c:when test="${empty memberMGList}">
+										<c:when test="${empty qnaMGList}">
 										    <tr>
 										      <td colspan="6">
 										         <p align="center">
-										            <b><span >등록된 회원이 없습니다.</span></b>
+										            <b><span >등록된 문의글이 없습니다.</span></b>
 										        </p>
 										      </td>  
 										    </tr>
 										</c:when>
 										<c:otherwise>
-										<c:forEach items="${memberMGList }" var="memDto">
-	                                	<tr>
-	                                        <td>${memDto.member_id}</td>
-	                                        <td>${memDto.member_name }</td>
-	                                        <td>${memDto.member_nickname}</td>
-	                                        <td>${memDto.member_regist_date}</td>
+										<c:forEach items="${qnaMGList }" var="qnaDto">
+	                                	<tr class="qnaDto" onclick="detail(${qnaDto.qna_no});">
+	                                        <td>${qnaDto.qna_no}</td>
+	                                        <td>${qnaDto.qna_title }</td>
+	                                        <td>${qnaDto.qna_write}</td>
+	                                        <td>${qnaDto.qna_write_name}</td>
+	                                        <td>${qnaDto.qna_regist_date }</td>
 	                                        <c:choose>
-	                                        	<c:when test="${memDto.member_lock == 'N'}">
-	                                        		<td>일반</td>
+	                                        	<c:when test="${qnaDto.qna_reply_exist == 'N'}">
+	                                        		<td>X</td>
 	                                        	</c:when>
-	                                        	<c:when test="${memDto.member_lock == 'Y'}">
-	                                        		<td>잠금</td>
+	                                        	<c:when test="${qnaDto.qna_reply_exist == 'Y'}">
+	                                        		<td>O</td>
 	                                        	</c:when>
-	                                        	<c:otherwise>
-	                                        		<td>기타</td>
-	                                        	</c:otherwise>
 	                                        </c:choose>
-	                                        <td>
-	                                        	<a class="detail btn btn-primary btn-sm" href="${memDto.member_id}">상세</a>
-	                                        	<a class="withdraw btn btn-danger btn-sm" href="${memDto.member_id}">탈퇴</a>
-	                                        </td>
 	                                    </tr>
 	                                	</c:forEach>
 	                                	</c:otherwise>
@@ -150,7 +152,7 @@ label {
                             </div>
                             
                             
-                            <form id="actionForm" action="${contextPath}/admin/memberMG/memberList" method="post">
+                            <form id="actionForm" action="${contextPath}/admin/qnaMG/qnaList" method="post">
                             	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                             	<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
                             	<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
@@ -173,27 +175,23 @@ label {
 
 <script type="text/javascript">
 	var actionForm = $("#actionForm");
-	//회원 상세
-	$(".detail").on("click", function(e) {
-		e.preventDefault();
-		var pk = $(this).attr("href");
-		
-		actionForm.append("<input type='hidden' name='member_id' value='" + pk + "'>");
-		actionForm.attr("action", "${contextPath}/admin/memberMG/memberDetail");
-		actionForm.submit();
 	
-	});
-	//회원 탈퇴
-	$(".withdraw").on("click", function(e) {
-		e.preventDefault();
-		var pk = $(this).attr("href");
-		
-		actionForm.append("<input type='hidden' name='member_id' value='" + pk + "'>");
-		actionForm.attr("action", "${contextPath}/admin/memberMG/memberWD");
+	//문의글 상세
+	function detail(qna_no) {
+		actionForm.append("<input type='hidden' name='qna_no' value='" + qna_no + "'>");
+		actionForm.attr("action", "${contextPath}/admin/qnaMG/qnaDetail");
 		actionForm.submit();
-		alert("탈퇴되었습니다. : " + pk );
+	}
 	
+	$(".paginate_button a").on("click", function(e) {
+		e.preventDefault();
+		
+		console.log("click");
+		
+		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+		actionForm.submit();
 	});
+	
 </script>
             
 

@@ -121,21 +121,6 @@
 		ORDER BY area_code, TO_NUMBER(area_detail_code)
   	</select>
   	
-  	<!-- 검색 -->
-  	<select id="searchList" resultType="kr.co.guide.admin.domain.TourDTO">
-  		SELECT * 
-  		FROM tbl_tour
-		<include refid="criteria"></include> 
- 			<if test="!(''.equals(area_code))">
-  				AND t.area_code = #{area_code}
-  			</if>
-  			<if test="!(''.equals(area_detail_code))">
-  				AND t.area_detail_code = #{area_detail_code}
-  			</if>
-  			<if test="!(''.equals(tour_type))">
-  				AND tour_type = #{tour_type}
-  			</if>
-  	</select>
 
 </mapper>
 

@@ -47,9 +47,5 @@ public class TourMGService implements ITourMGService{
 		return mapper.cateList();
 	}
 
-	@Override
-	public List<TourDTO> searchList(TourDTO tDto) throws Exception {
-		return mapper.searchList(tDto);
-	}
 
 }

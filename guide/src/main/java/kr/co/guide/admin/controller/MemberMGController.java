@@ -41,6 +41,19 @@ public class MemberMGController {
 		
 	}
 	
+	@RequestMapping(value = "/memberList", method = RequestMethod.POST)
+	public void memberPagePost(Criteria cri, Model model) throws Exception {
+		log.info("memberPage.....Post.........");	
+		
+		model.addAttribute("memberMGList", service.listPaging(cri));
+		
+		int total = service.getTotalCnt(cri);
+		log.info("total : " + total);
+		
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
+		
+	}
+	
 	//회원탈퇴
 	@RequestMapping(value = "/memberWD", method = RequestMethod.POST)		
 	public String memberWD(@RequestParam("member_id") String member_id) throws Exception {
@@ -93,6 +106,18 @@ public class MemberMGController {
 	@RequestMapping(value = "/memberWDList", method = RequestMethod.GET)
 	public void memberWD(Criteria cri, Model model) throws Exception {
 		log.info("memberWDList..............");	
+		
+		model.addAttribute("memberMGList", service.listWithdrawPaging(cri));
+		
+		int total = service.getWithdrawCnt(cri);
+		log.info("total : " + total);
+		
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
+		
+	}
+	@RequestMapping(value = "/memberWDList", method = RequestMethod.POST)
+	public void memberWDPost(Criteria cri, Model model) throws Exception {
+		log.info("memberWDList.......Post.......");	
 		
 		model.addAttribute("memberMGList", service.listWithdrawPaging(cri));
 		

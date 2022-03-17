@@ -10,10 +10,6 @@ import kr.co.guide.admin.domain.TourDTO;
 
 public interface TourMGMapper {
 	
-//	public int insert(TourDTO tDto) throws Exception;
-//	public TourDTO read(String tour_no) throws Exception;
-//	public int update(TourDTO tDto) throws Exception;
-	
 	/* ● 여행지 목록 페이지 */
 	public TourDTO read(String tour_no) throws Exception;
 	
@@ -27,6 +23,4 @@ public interface TourMGMapper {
 	//카테고리 분류
 	public List<AreaDTO> cateList();
 	
-	//검색
-	public List<TourDTO> searchList(TourDTO tDto) throws Exception;
 }

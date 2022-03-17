@@ -17,8 +17,6 @@ public interface ITourMGService {
 	
 	//카테고리 분류
 	public List<AreaDTO> cateList();
-	//검색
-	public List<TourDTO> searchList(TourDTO tDto) throws Exception;
 	
 
 }

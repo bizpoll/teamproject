@@ -25,13 +25,65 @@
 	<result property="member_authority" column="member_authority" />
 </resultMap>
 
+	<!-- 회원 검색 -->
+	<sql id="criteria">
+	   	<trim prefix="AND (" suffix=")" prefixOverrides="OR" >
+			<foreach collection="typeArr" item="type">
+				<trim prefix="OR">
+					<choose>
+						<when test="type == 'E'.toString()">
+							member_id LIKE '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'N'.toString()">
+							member_name LIKE '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'I'.toString()">
+							member_nickname LIKE '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'L'.toString()">
+							member_lock LIKE '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
 	
 	<!-- 탈퇴안한 회원 리스트 -->
-	<select id="getListWithdrawN" resultType="kr.co.guide.admin.domain.MemberDTO">
+	<select id="getListWithdrawNPaging" resultMap="memberMap">
+	<![CDATA[
 		SELECT *
-		FROM tbl_member
-		WHERE member_withdraw = 'N'
+		FROM (SELECT DISTINCT /*+ INDEX_ASC(tbl_member PK_TBL_MEMBER) */
+				rownum rn,
+			   	member_id,
+			    member_password,
+			    member_name,
+			    member_nickname,
+			    member_regist_date,
+			    member_access_date,
+			    member_withdraw,
+			    member_delete_date,
+			    member_dormant,
+			    member_dormant_date,
+			    member_lock
+			FROM tbl_member
+			WHERE member_withdraw = 'N'
+		]]>
+  			<include refid="criteria"></include>
+		<![CDATA[
+			AND rownum <= #{pageNum} * #{amount})
+			WHERE rn > (#{pageNum} - 1) * #{amount}	
+			ORDER BY member_id
+		]]>
 	</select>
+	
+	<select id="getWithdrawNCnt" resultType="int">
+  		SELECT COUNT(*)
+  		FROM tbl_member
+  		WHERE member_withdraw = 'N'
+  		<include refid="criteria"></include>
+  	</select>
+  	
 	
 	<update id="updateWithdrawY">
 		UPDATE tbl_member
@@ -56,8 +108,8 @@
 		    member_dormant_date,
 		    member_lock
 		FROM tbl_member m
-		join tbl_authority au
-		on m.member_id = au.member_id
+		JOIN tbl_authority au
+		ON m.member_id = au.member_id
 		WHERE m.member_id = #{member_id}
 	</select>
 	<select id="confirmNick"  parameterType="string" resultType="int">
@@ -78,11 +130,39 @@
 	</update>
 
 	<!-- ● 탈퇴한 회원 관리 페이지 -->
-	<select id="getListWithdrawY" resultType="kr.co.guide.admin.domain.MemberDTO">
+	<select id="getListWithdrawYPaging" resultType="kr.co.guide.admin.domain.MemberDTO">
+	<![CDATA[
 		SELECT *
-		FROM tbl_member
-		WHERE member_withdraw = 'Y'
+		FROM (SELECT DISTINCT /*+ INDEX_ASC(tbl_member PK_TBL_MEMBER) */
+				rownum rn,
+			   	member_id,
+			    member_password,
+			    member_name,
+			    member_nickname,
+			    member_regist_date,
+			    member_access_date,
+			    member_withdraw,
+			    member_delete_date,
+			    member_dormant,
+			    member_dormant_date,
+			    member_lock
+			FROM tbl_member
+			WHERE member_withdraw = 'Y'
+		]]>
+  			<include refid="criteria"></include>
+		<![CDATA[
+			AND rownum <= #{pageNum} * #{amount})
+			WHERE rn > (#{pageNum} - 1) * #{amount}	
+			ORDER BY member_id
+		]]>
 	</select>
+	
+	<select id="getWithdrawYCnt" resultType="int">
+  		SELECT COUNT(*)
+  		FROM tbl_member
+  		WHERE member_withdraw = 'Y'
+  		<include refid="criteria"></include>
+  	</select>
 	
 	<update id="updateWithdrawN">
 		UPDATE tbl_member

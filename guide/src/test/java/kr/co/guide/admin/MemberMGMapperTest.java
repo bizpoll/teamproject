@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import kr.co.guide.DataSourceTest;
+import kr.co.guide.admin.domain.TourCriteria;
 import kr.co.guide.admin.domain.Criteria;
 import kr.co.guide.admin.domain.MemberAuthDTO;
 import kr.co.guide.admin.domain.MemberDTO;
@@ -113,6 +114,22 @@ public class MemberMGMapperTest {
 //		mapper.delete(member_id);
 //	}
 	
+	
+//	@Test
+//	public void testGetListWithdrawNPaging() throws Exception {
+//		Criteria cri = new Criteria();
+//		
+//		 mapper.getListWithdrawNPaging(cri);
+//		
+//	}
+	
+//	@Test
+//	public void testTotalCnt() throws Exception {
+//		
+//		Criteria cri = new Criteria();
+//		
+//		System.out.println(mapper.getTotalCnt(cri));
+//	}
 	
 	
 }

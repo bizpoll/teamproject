@@ -2,15 +2,16 @@ package kr.co.guide.admin.mapper;
 
 import java.util.List;
 
-import kr.co.guide.admin.domain.Criteria;
-import kr.co.guide.admin.domain.MemberAuthDTO;
 import kr.co.guide.admin.domain.MemberDTO;
+import kr.co.guide.admin.domain.Criteria;
 
 public interface MemberMGMapper {
 
 	/* ● 회원 목록 페이지 */
 	//회원 리스트 전체 (탈퇴 x)
-	public List<MemberDTO> getListWithdrawN() throws Exception;
+	public List<MemberDTO> getListWithdrawNPaging(Criteria cri) throws Exception;
+	public int getWithdrawNCnt(Criteria cri) throws Exception;
+	
 
 	//회원 탈퇴
 	public int updateWithdrawY(String member_id) throws Exception;
@@ -26,7 +27,8 @@ public interface MemberMGMapper {
 	public int update(MemberDTO mDto) throws Exception;
 	
 	/* ● 탈퇴한 회원 관리 페이지 */
-	public List<MemberDTO> getListWithdrawY() throws Exception;
+	public List<MemberDTO> getListWithdrawYPaging(Criteria cri) throws Exception;
+	public int getWithdrawYCnt(Criteria cri) throws Exception;
 	
 	public int updateWithdrawN(String member_id) throws Exception;
 	public int delete(String member_id) throws Exception;

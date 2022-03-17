@@ -6,15 +6,15 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.guide.admin.domain.Criteria;
 import kr.co.guide.admin.domain.MemberDTO;
+import kr.co.guide.admin.domain.PageDTO;
 import kr.co.guide.admin.service.IMemberMGService;
 import lombok.extern.log4j.Log4j;
 
@@ -29,12 +29,16 @@ public class MemberMGController {
 	/* ● 회원 목록 페이지 */
 	//회원목록
 	@RequestMapping(value = "/memberList", method = RequestMethod.GET)
-	public String member(Model model) throws Exception {
-		log.info("memberList..............");	
+	public void memberPage(Criteria cri, Model model) throws Exception {
+		log.info("memberPage..............");	
 		
-		model.addAttribute("memberMGList", service.list());
+		model.addAttribute("memberMGList", service.listPaging(cri));
 		
-		return "admin/memberMG/memberList";
+		int total = service.getTotalCnt(cri);
+		log.info("total : " + total);
+		
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
+		
 	}
 	
 	//회원탈퇴
@@ -87,12 +91,16 @@ public class MemberMGController {
 	/* ● 탈퇴한 회원 관리 페이지 */
 	//탈퇴 회원목록
 	@RequestMapping(value = "/memberWDList", method = RequestMethod.GET)
-	public String memberWD(Model model) throws Exception {
+	public void memberWD(Criteria cri, Model model) throws Exception {
 		log.info("memberWDList..............");	
 		
-		model.addAttribute("memberMGList", service.listWithdraw());
+		model.addAttribute("memberMGList", service.listWithdrawPaging(cri));
 		
-		return "admin/memberMG/memberWDList";
+		int total = service.getWithdrawCnt(cri);
+		log.info("total : " + total);
+		
+		model.addAttribute("pageMaker", new PageDTO(cri, total));
+		
 	}
 	
 	//회원 탈퇴 취소

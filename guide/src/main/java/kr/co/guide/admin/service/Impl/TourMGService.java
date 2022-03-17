@@ -7,7 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.co.guide.admin.domain.Criteria;
+import kr.co.guide.admin.domain.AreaDTO;
+import kr.co.guide.admin.domain.TourCriteria;
 import kr.co.guide.admin.domain.TourDTO;
 import kr.co.guide.admin.mapper.TourMGMapper;
 import kr.co.guide.admin.service.ITourMGService;
@@ -21,12 +22,12 @@ public class TourMGService implements ITourMGService{
 	private static final Logger log = LoggerFactory.getLogger(TourMGService.class);
 
 	@Override
-	public List<TourDTO> listAllPaging(Criteria cri) throws Exception {
+	public List<TourDTO> listAllPaging(TourCriteria cri) throws Exception {
 		return mapper.getListWithPaging(cri);
 	}
 
 	@Override
-	public int getTotalCnt(Criteria cri) throws Exception {
+	public int getTotalCnt(TourCriteria cri) throws Exception {
 		return mapper.getTotalCnt(cri);
 	}
 
@@ -39,6 +40,16 @@ public class TourMGService implements ITourMGService{
 	@Override
 	public TourDTO read(String tour_no) throws Exception {
 		return mapper.read(tour_no);
+	}
+
+	@Override
+	public List<AreaDTO> cateList() {
+		return mapper.cateList();
+	}
+
+	@Override
+	public List<TourDTO> searchList(TourDTO tDto) throws Exception {
+		return mapper.searchList(tDto);
 	}
 
 }

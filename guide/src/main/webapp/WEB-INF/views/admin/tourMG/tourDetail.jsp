@@ -85,7 +85,13 @@
 	                                        <td>지역 코드: ${tourDetail.area_code}</td>
 	                                    </tr>
 	                                	<tr>
+	                                        <td>지역 코드 이름: ${tourDetail.area_name}</td>
+	                                    </tr>
+	                                	<tr>
 	                                        <td>지역 상세 코드: ${tourDetail.area_detail_code}</td>
+	                                    </tr>
+	                                	<tr>
+	                                        <td>지역 상세 코드 이름: ${tourDetail.area_detail_name}</td>
 	                                    </tr>
 
                                     </tbody>

@@ -83,6 +83,19 @@
                 </div>
             </li>
             
+            <!-- Nav Item - 관리자 관리(adminMG) -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsAdminMG"
+                    aria-expanded="true" aria-controls="collapsAdminMG">
+                    <span>관리자 관리</span>
+                </a>
+                <div id="collapsAdminMG" class="collapse" aria-labelledby="headingAdminMG" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="${contextPath}/admin/adminMG/adminList">관리자 목록</a>
+                    </div>
+                </div>
+            </li>
+            
 
 
 

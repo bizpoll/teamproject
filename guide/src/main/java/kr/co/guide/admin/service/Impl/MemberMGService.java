@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import kr.co.guide.admin.domain.Criteria;
 import kr.co.guide.admin.domain.MemberDTO;
 import kr.co.guide.admin.mapper.MemberMGMapper;
 import kr.co.guide.admin.service.IMemberMGService;
@@ -30,9 +31,14 @@ public class MemberMGService implements IMemberMGService{
 	}
 
 	@Override
-	public List<MemberDTO> list() throws Exception {
-		log.info("MemberMGService......list paging x ..................");
-		return mapper.getListWithdrawN();
+	public List<MemberDTO> listPaging(Criteria cri) throws Exception {
+		log.info("MemberMGService......list paging ..................");
+		return mapper.getListWithdrawNPaging(cri);
+	}
+	
+	@Override
+	public int getTotalCnt(Criteria cri) throws Exception {
+		return mapper.getWithdrawNCnt(cri);
 	}
 
 	@Override
@@ -40,11 +46,16 @@ public class MemberMGService implements IMemberMGService{
 		log.info("MemberMGService......탈퇴 ..................");
 		return mapper.updateWithdrawY(member_id);
 	}
-
+	
 	@Override
-	public List<MemberDTO> listWithdraw() throws Exception {
+	public List<MemberDTO> listWithdrawPaging(Criteria cri) throws Exception {
 		log.info("MemberMGService...... 탈퇴회원목록 ..................");
-		return mapper.getListWithdrawY();
+		return mapper.getListWithdrawYPaging(cri);
+	}
+	
+	@Override
+	public int getWithdrawCnt(Criteria cri) throws Exception {
+		return mapper.getWithdrawYCnt(cri);
 	}
 
 	@Override

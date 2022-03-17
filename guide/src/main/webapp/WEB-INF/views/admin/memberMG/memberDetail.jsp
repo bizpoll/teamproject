@@ -32,12 +32,14 @@
 	                                    </tr>
 	                                    <tr><td>권한:
 	                                    <c:forEach items="${memberDetail.getAuthList() }" var="auth">
-	                                    ${auth.getMember_authority() }
+	                                    <c:if test="${auth.getMember_authority() == 'ROLE_MEMBER' }">
+	                                    	회원
+	                                    </c:if>
+	                                    <c:if test="${auth.getMember_authority() == 'ROLE_ADMIN' }">
+	                                    	, 관리자
+	                                    </c:if>
 	                                    </c:forEach>
 	                                    </td></tr>
-	                                	<tr>
-	                                        <td>비밀번호: ${memberDetail.member_password }</td>
-	                                    </tr>
 	                                	<tr>
 	                                        <td>이름: ${memberDetail.member_name }</td>
 	                                    </tr>

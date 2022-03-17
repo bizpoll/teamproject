@@ -8,10 +8,22 @@
 		VALUES(seq_schedule.nextval, #{schedule_start}, #{schedule_end}, #{member_id})
 	</insert>
 	
+	<insert id="sdInsert" parameterType="kr.co.guide.travel.domain.ScheduleDetailDTO">
+		<selectKey order="BEFORE" resultType="int" keyProperty="schedule_no"> 
+			SELECT seq_schedule.nextval 
+			FROM dual 
+		</selectKey> 
+		INSERT INTO tbl_schedule_detail(schedule_day, schedule_order, schedule_no, tour_no)
+		VALUES(#{schedule_day}, #{schedule_order},#{schedule_no}, #{tour_no})
+	</insert>
+</mapper>
+	
+
+	
 <!-- 	<insert id="sdInsert" parameterType="kr.co.guide.travel.mapper.ScheduleDetialMapper"> -->
 <!-- 		INSERT INTO tbl_schedule_detail(schedule_day, schedule_order, schedule_no, tour_no) -->
 <!-- 		VALUES -->
-<!-- 		<foreach collection="list" item="item" separator=" , "> -->
+<!--  		<foreach collection="list" item="item" separator=" , ">  -->
 <!-- 			(#{schedule_day}, #{schedule_order}, -->
 <!-- 			(SELECT MAX(schedule_no) -->
 <!-- 			FROM tbl_schedule -->
@@ -19,4 +31,3 @@
 <!-- 			#{tour_no}) -->
 <!-- 		</foreach> -->
 <!-- 	</insert> -->
-</mapper>

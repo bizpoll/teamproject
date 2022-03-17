@@ -38,6 +38,6 @@ public class ScheduleController {
 	   sService.sInsert(sDto);
 	   sService.sdInsert(sdDto);
 	   
-	   return "redirect:/travel/schedule";
+	   return "redirect:/";
    }
 }

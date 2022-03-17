@@ -7,8 +7,8 @@
 	<select id="TourRead" resultType="kr.co.guide.travel.domain.TourDTO">
 		SELECT *
 		FROM tbl_tour
-		WHERE area_code = 5
-		AND area_detail_code = 4
+		WHERE area_code = #{area_code}
+		AND area_detail_code = #{area_detail_code}
 	</select>
 	
 	<select id="areaList" resultType="kr.co.guide.travel.domain.AreaDTO">

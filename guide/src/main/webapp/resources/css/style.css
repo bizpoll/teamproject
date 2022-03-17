@@ -1240,7 +1240,7 @@ tems Section style
     display: inline-block;
     padding: 0.5rem 1.5rem;
     margin-bottom: 10px;
-    background: #EEE;
+    background: #f2f2f2;
     border: none;
     border-radius: 4px;
     color: #222;
@@ -1298,7 +1298,7 @@ tems Section style
 .main-portfolio .grid-item {
     position: relative;
     margin: 5px;
-    width:372px;
+    width: 410px;
     overflow: hidden;
 }
 
@@ -1312,6 +1312,10 @@ tems Section style
     height: 100%;
     transition: all 0.6s;
 
+}
+
+.main-portfolio .grid-item:hover{
+    cursor: pointer;
 }
 
 .main-portfolio .grid-item:hover img{

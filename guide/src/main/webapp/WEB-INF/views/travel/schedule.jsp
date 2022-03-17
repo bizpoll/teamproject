@@ -297,13 +297,14 @@
 <%-- 				<input type="hidden" name="area_code" value="${tour.area_code }"> --%>
 <%-- 				<input type="hidden" name="area_detail_code" value="${tour.area_detail_code }"> --%>
 			<c:forEach items="${tour}" var="tour">
-				<div class="d-flex justify-content-between shadow m-2 p-2 itemBox placeHoverRight" style="height: 5em;">
+				<div class="justify-content-between shadow m-2 p-2 itemBox placeHoverRight" style="height: 5em; display: flex">
 					<input type="hidden" class="itemNum" name="schedule_order"/>
 					<input type="hidden" class="schedule_day" name="schedule_day"/>
-					<input type="hidden" class="tour_no" name="tour_no" value="${tour.tour_no}"/>
-					<input type="hidden" class="tourType" data-tourtype="${tour.tour_type}"/>
+					<input type="hidden" class="tour_no" name="tour_no" value="${tour.tour_no}" data-tourNo="${tour.tour_no}"/>
+					<input type="hidden" class="tourType${tour.tour_type}" data-tourtype="${tour.tour_type}" value="${tour.tour_type}"/>
 					<input type="hidden" class="mapxVal" data-mapx="${tour.tour_mapx}"/>
 					<input type="hidden" class="mapyVal" data-mapy="${tour.tour_mapy}"/>
+					<input type="hidden" id="zipcode" value="${tour.tour_zipcode}"/>
 					<div class="d-flex align-items-center" style="width: 20%; background: url('${tour.tour_image}'); background-position: center; background-repeat: no-repeat; background-size:contain;"></div>
 					<img alt="모달 이미지" src="${tour.tour_image }" style="display: none;" id="p_image">
 					<div class="align-self-center text-start" style="width: 80%; padding-left: 0.5em">
@@ -348,27 +349,24 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<div class="modal-header" style="justify-content: flex-end;border-bottom: none;">
-<!-- 				<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="border: none;background-color: white;"> -->
-<!-- 					<span aria-hidden="true">&times;</span> -->
-<!-- 				</button> -->
-			</div>
 			<div class="modal-body">
 				<div>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="border: none;background-color: white;">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="border: none;background-color: white; float: right;">
 						<span aria-hidden="true">&times;</span>
 					</button>
 					<div class="modalBox">
-						<img alt="장소이미지" src="" style="width: 200px; height: 146px; float: left;">
+						<img alt="장소이미지" src="" style="width: 200px; height: 146px; float: left; margin-right: 15px;">
 					</div>
-					<div>
-						<h6 class="modal-title" id="myModalLabel"></h6>
-						<p></p>
+					<div class="pt-3">
+						<h5 class="modal-title" id="myModalLabel" style="font-weight: bold;margin-bottom: 9px;"></h5>
+						(<span class="modal-zipcode" style="font-size: 13px;"></span>)
+						<span class="modal-address" style="font-size: 13px;"></span>
+						<input type="hidden" class="modal_tourNo">
 					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal" style="background-color: #41CFDA;color: #fff;font-size: 5px;font-weight: bold;">목록추가</button>
+				<button type="button" class="btn btn-default addList" data-dismiss="modal" style="background-color: #41CFDA;color: #fff;font-size: 5px;font-weight: bold;">목록추가</button>
 				<button type="button" class="btn btn-primary" style="background-color: gray;font-size: 5px;font-weight: bold;border-color: gray;">리뷰보기</button>
 			</div>
 		</div>
@@ -735,15 +733,50 @@
 		}
 	});
 	
+	$(".tab-0").click(function() {
+		$(".tourType0").parent(".placeHoverRight").show();
+		$(".tourType1").parent(".placeHoverRight").hide();
+		$(".tourType2").parent(".placeHoverRight").hide();
+	});
+	$(".tab-1").click(function() {
+		$(".tourType0").parent(".placeHoverRight").hide();
+		$(".tourType1").parent(".placeHoverRight").show();
+		$(".tourType2").parent(".placeHoverRight").hide();
+	});
+	$(".tab-2").click(function() {
+		$(".tourType0").parent(".placeHoverRight").hide();
+		$(".tourType1").parent(".placeHoverRight").hide();
+		$(".tourType2").parent(".placeHoverRight").show();
+	});
+	$(".tab-3").click(function() {
+		$(".tourType0").parent(".placeHoverRight").show();
+		$(".tourType1").parent(".placeHoverRight").show();
+		$(".tourType2").parent(".placeHoverRight").show();
+	});
+	
 	//경진
 	$('i#infoItem').click(function(e){
 		e.preventDefault();
 		$('div#myModal').modal("show");
 		
 		var imgSrc = $(this).parent().parent().parent().prev("#p_image").attr("src");
+		var tour_no = $(this).parent().parent().parent().prevAll(".tour_no").val();
 		
 		$(".modal-title").text($(this).parent().prevAll("span.ellipsis").text());
 		$(".modalBox img").attr("src", imgSrc);
+		$(".modal-address").text($(this).parent().parent().next(".ellipsis").text());
+		$(".modal-zipcode").text($(this).parent().parent().parent().prevAll("#zipcode").val());
+		$("input.modal_tourNo").val(tour_no);
+	});
+	
+	$(".addList").click(function() {
+		var tour_no = $("input.modal_tourNo").val();
+		
+		$("input[data-tourNo='" + tour_no + "']").parent(".placeHoverRight").insertBefore(".show .itemBoxWrap .addPlace");
+		$("#myModal").modal("hide");
+	});
+	$(".close").click(function() {
+		$("#myModal").modal("hide");
 	});
 </script>
 </body>

@@ -23,13 +23,13 @@
 			data-bs-slide-to="2" aria-label="Slide 3"></button>
 	</div>
 	<div class="carousel-inner" style="height: 30em;">
-		<div class="carousel-item active">
-			<img src="..." class="d-block" alt="...">
-			<div class="carousel-caption d-none d-md-block">
-				<h5>First slide label</h5>
-				<p>Some representative placeholder content for the first slide.</p>
-			</div>
-		</div>
+<!-- 		<div class="carousel-item active"> -->
+<!-- 			<img src="..." class="d-block" alt="..."> -->
+<!-- 			<div class="carousel-caption d-none d-md-block"> -->
+<!-- 				<h5>First slide label</h5> -->
+<!-- 				<p>Some representative placeholder content for the first slide.</p> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
 		<c:forEach items="${areaList}" var="areaList" begin="1" end="5" varStatus="index">
 			<div class="carousel-item">
 				<img src="${areaList.area_image}" class="d-block w-100" alt="..." style="height: 100%;">
@@ -37,7 +37,7 @@
 					<h5>${areaList.area_english_title}</h5>
 					<h5>${areaList.area_name}&nbsp;${areaList.area_detail_name}</h5>
 					<p>${areaList.area_content}</p>
-					<p>${!index.first }</p>
+					<p>${index}</p>
 				</div>
 			</div>
 		</c:forEach>
@@ -205,6 +205,9 @@ $(function() {
 		actionForm.attr("action", "/board/read");
 		actionForm.submit();
 	});
+	
+// 	$(".carousel-item").index(1).addClass("active");
+	alert($(".carousel-item").index(1).html());
 });
 </script>
 </body>

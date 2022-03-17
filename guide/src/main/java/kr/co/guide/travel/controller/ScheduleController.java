@@ -36,8 +36,8 @@ public class ScheduleController {
 	   logger.info("scheduleInsert post...........");
 	   
 	   sService.sInsert(sDto);
-	   sService.sdInsert(sdDto);
+//	   sService.sdInsert(sdDto);
 	   
-	   return "redirect:/travel/schedule";
+	   return "redirect:/";
    }
 }

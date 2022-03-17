@@ -120,7 +120,7 @@ label {
 	                                        <td>${tDto.area_detail_name}</td>
 	                                        <td>
 	                                        	<a class="detail btn btn-primary btn-sm" href="${tDto.tour_no}">상세</a>
-	                                        	<a class="remove btn btn-danger btn-sm" href="#">삭제</a>
+	                                        	<a class="remove btn btn-danger btn-sm" href="${tDto.tour_no}">삭제</a>
 	                                        </td>
 	                                    </tr>
 	                                	</c:forEach>
@@ -279,6 +279,7 @@ label {
 
 <script type="text/javascript">
 	var actionForm = $("#actionForm");
+	
 	$(".detail").on("click", function(e) {
 		e.preventDefault();
 		var pk = $(this).attr("href");
@@ -289,16 +290,18 @@ label {
 	
 	});
 	
-/* 	$(".remove").on("click", function(e) {
+ 	$(".remove").on("click", function(e) {
 		e.preventDefault();
 		var pk = $(this).attr("href");
 		
-		actionForm.append("<input type='hidden' name='tour_no' value='" + pk + "'>");
-		actionForm.attr("action", "${contextPath}/admin/tourMG/tourListDel");
-		actionForm.submit();
-		alert("삭제되었습니다. : " + pk );
+		if (confirm("관광지 정보를 삭제 하시겠습니까? : " + pk)) {
+			actionForm.append("<input type='hidden' name='tour_no' value='" + pk + "'>");
+			actionForm.attr("action", "${contextPath}/admin/tourMG/tourListDel");
+			actionForm.submit();
+			alert("삭제되었습니다. : " + pk );
+		}  
 	
-	}); */
+	}); 
 	
 	$(".paginate_button a").on("click", function(e) {
 		e.preventDefault();

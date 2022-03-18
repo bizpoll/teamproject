@@ -10,187 +10,86 @@
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Neucha' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 <body>
 <%@ include file="./mainheader.jsp"%>
 
 <style>
-a{text-decoration:none; color:#666;}
-a:hover{color:#1bc1a3;}
-
-#wrapper{
-/*   width:600px; */
-  margin:50px auto;
-  height:400px;
-  position:relative;
-  color:#fff;
-  text-shadow:rgba(0,0,0,0.1) 2px 2px 0px;  
+.carousel-inner > .carousel-item > img{ 
+/* width: 640px; height: 720px; */ 
 }
 
-#slider-wrap{
-/*   width:600px; */
-  height:400px;
-/*   position:relative; */
-  overflow:hidden;
-}
-
-#slider-wrap ul#slider{
-  width:100%;
-  height:100%;
-  position:absolute;
-  top:0;
-  left:0;
-}
-
-#slider-wrap ul#slider li{
-  float:left;
-  position:relative;
-  width:1500px;
-  height:400px; 
-/*   margin: 0 15px; */
-}
-
-#slider-wrap ul#slider li > div{
-/*   position:absolute; */
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-  top:20px;
-  left:35px;  
-}
-
-#slider-wrap ul#slider li > div h3{
-  font-size:36px;
-  text-transform:uppercase; 
-}
-
-#slider-wrap ul#slider li > div span{
-  font-family: Neucha, Arial, sans serif;
-  font-size:21px;
-}
-
-#slider-wrap ul#slider li img{
-/*   display:block; */
-/*   width:100%; */
-/*   height: 100%; */
-	height: 380px;
-}
-
-
-/*btns*/
-.btns{
-  position:absolute;
-  width:50px;
-  height:60px;
-  top:50%;
-  margin-top:-25px;
-  line-height:57px;
-  text-align:center;
-  cursor:pointer; 
-  background:rgba(0,0,0,0.1);
-  z-index:100;
-  
-  
-  -webkit-user-select: none;  
-  -moz-user-select: none; 
-  -khtml-user-select: none; 
-  -ms-user-select: none;
-  
-  -webkit-transition: all 0.1s ease;
-  -moz-transition: all 0.1s ease;
-  -o-transition: all 0.1s ease;
-  -ms-transition: all 0.1s ease;
-  transition: all 0.1s ease;
-}
-
-.btns:hover{
-  background:rgba(0,0,0,0.3); 
-}
-
-#next{right:-50px; border-radius:7px 0px 0px 7px;}
-#previous{left:-50px; border-radius:0px 7px 7px 7px;}
-#counter{
-  top: 30px; 
-  right:35px; 
-  width:auto;
-  position:absolute;
-}
-#slider-wrap.active #next{right:0px;}
-#slider-wrap.active #previous{left:0px;}
-/*bar*/
-#pagination-wrap{
-  min-width:20px;
-  margin-top:350px;
-  margin-left: auto; 
-  margin-right: auto;
-  height:15px;
-  position:relative;
-  text-align:center;
-}
-#pagination-wrap ul {
-  width:100%;
-}
-#pagination-wrap ul li{
-  margin: 0 4px;
-  display: inline-block;
-  width:5px;
-  height:5px;
-  border-radius:50%;
-  background:#fff;
-  opacity:0.5;
-  position:relative;
-  top:0;
-  
-  
-}
-
-#pagination-wrap ul li.active{
-  width:12px;
-  height:12px;
-  top:3px;
-  opacity:1;
-  box-shadow:rgba(0,0,0,0.1) 1px 1px 0px; 
-}
-/*Header*/
-h1, h2{text-shadow:none; text-align:center;}
-h1{ color: #666; text-transform:uppercase;  font-size:36px;}
-h2{ color: #7f8c8d; font-family: Neucha, Arial, sans serif; font-size:18px; margin-bottom:30px;} 
-/*ANIMATION*/
-#slider-wrap ul, #pagination-wrap ul li{
-  -webkit-transition: all 0.3s cubic-bezier(1,.01,.32,1);
-  -moz-transition: all 0.3s cubic-bezier(1,.01,.32,1);
-  -o-transition: all 0.3s cubic-bezier(1,.01,.32,1);
-  -ms-transition: all 0.3s cubic-bezier(1,.01,.32,1);
-  transition: all 0.3s cubic-bezier(1,.01,.32,1); 
-}
 </style>
 <%-- 바디 시작 --%>
 <!-- 슬라이드 -->
-<div id="wrapper">
-	<div id="slider-wrap">
-		<ul id="slider">
-			<c:forEach items="${areaList}" begin="1" end="5" var="areaList">
-			<li>
-				<div >
-					<img alt="이미지" src="${areaList.area_image}">
-					<div>
-						<h4  class="text-white">${areaList.area_english_title}</h4>
-						<h4 class="text-white">${areaList.area_name}&nbsp;${areaList.area_detail_name}</h4>
-<%-- 						<p style="word-break:break-all;">${areaList.area_content }</p> --%>
-					</div> 
-				</div>
-			</li>
-			</c:forEach>
-		</ul>
-       <!--controls-->
-		<div class="btns" id="next"><i class="fa fa-arrow-right"></i></div>
-		<div class="btns" id="previous"><i class="fa fa-arrow-left"></i></div>
-		<div id="pagination-wrap">
-			<ul>
-			</ul>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script> 
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> 
+<script> 
+	$('.carousel').carousel({ 
+		interval: 2000 //기본 5초 
+	}) ;
+</script> 
+<!-- <div class="container"> -->
+<!-- <h2>Carousel practice</h2> -->
+<!-- </div>  -->
+<div id="demo" class="carousel slide" data-ride="carousel"> 
+	<div class="carousel-inner"> 
+		<div class="carousel-item active"> 
+			<img class="d-block w-100" src="https://images.pexels.com/photos/213399/pexels-photo-213399.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="First slide" style="height: 450px"> 
 		</div>
-		<!--controls-->  
+		<c:forEach items="${areaList}" begin="1" end="3" var="areaList">
+			<div class="carousel-item"> 
+				<img alt="이미지" src="${areaList.area_image}" style="width: 100%;height:450px;">
+			</div> 
+		</c:forEach> 
+		<a class="carousel-control-prev" href="#demo" data-slide="prev"> 
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span> 
+			<!-- <span>Previous</span> --> 
+		</a> 
+		<a class="carousel-control-next" href="#demo" data-slide="next"> 
+			<span class="carousel-control-next-icon" aria-hidden="true"></span> 
+			<!-- <span>Next</span> --> 
+		</a> 
+		<ul class="carousel-indicators"> 
+			<li data-target="#demo" data-slide-to="0" class="active"></li> 
+			<li data-target="#demo" data-slide-to="1"></li> 
+			<li data-target="#demo" data-slide-to="2"></li> 
+			<li data-target="#demo" data-slide-to="3"></li> 
+		</ul> 
 	</div>
-</div>
+</div>	
+
+
+
+<!-- <div id="wrapper"> -->
+<!-- 	<div id="slider-wrap"> -->
+<!-- 		<ul id="slider"> -->
+<%-- 			<c:forEach items="${areaList}" begin="1" end="5" var="areaList"> --%>
+<!-- 			<li> -->
+<!-- 				<div > -->
+<%-- 					<img alt="이미지" src="${areaList.area_image}"> --%>
+<!-- 					<div> -->
+<%-- 						<h4  class="text-white">${areaList.area_english_title}</h4> --%>
+<%-- 						<h4 class="text-white">${areaList.area_name}&nbsp;${areaList.area_detail_name}</h4> --%>
+<%-- 						<p style="word-break:break-all;">${areaList.area_content }</p> --%>
+<!-- 					</div>  -->
+<!-- 				</div> -->
+<!-- 			</li> -->
+<%-- 			</c:forEach> --%>
+<!-- 		</ul> -->
+<!--        controls -->
+<!-- 		<div class="btns" id="next"><i class="fa fa-arrow-right"></i></div> -->
+<!-- 		<div class="btns" id="previous"><i class="fa fa-arrow-left"></i></div> -->
+<!-- 		<div id="pagination-wrap"> -->
+<!-- 			<ul> -->
+<!-- 			</ul> -->
+<!-- 		</div> -->
+<!-- 		<!--controls-->   
+<!-- 	</div> -->
+<!-- </div> -->
 
 <section id="portfolio" class="portfolio margin-top-120">
 	<!-- Portfolio container-->
@@ -322,52 +221,52 @@ h2{ color: #7f8c8d; font-family: Neucha, Arial, sans serif; font-size:18px; marg
 <%@ include file="./jsLink.jsp"%>
 
 <script type="text/javascript">
-$(function() {
-	var pos = 0;  //current position
-	var totalSlides = $('#slider-wrap ul li').length;  //number of slides
-	var sliderWidth = $('#slider-wrap').width();   //get the slide width
-	$(document).ready(function(){
-	  $('#slider-wrap ul#slider').width(sliderWidth*totalSlides);
-	  $('#next').click(function(){
-	    slideRight();
-	  });
-	  $('#previous').click(function(){
-	    slideLeft();
-	  });
-	  var autoSlider = setInterval(slideRight, 3000);
-	  $.each($('#slider-wrap ul li'), function() { 
-	     var li = document.createElement('li');
-	     $('#pagination-wrap ul').append(li);    
-	  });
-	  countSlides();
-	  pagination();
-	  $('#slider-wrap').hover(
-	    function(){ $(this).addClass('active'); clearInterval(autoSlider); }, 
-	    function(){ $(this).removeClass('active'); autoSlider = setInterval(slideRight, 3000); }
-	  );
-	});//DOCUMENT READY
-	function slideLeft(){
-	  pos--;
-	  if(pos==-1){ pos = totalSlides-1; }
-	  $('#slider-wrap ul#slider').css('left', -(sliderWidth*pos));  
-	  countSlides();
-	  pagination();
-	}
-	function slideRight(){
-	  pos++;
-	  if(pos==totalSlides){ pos = 0; }
-	  $('#slider-wrap ul#slider').css('left', -(sliderWidth*pos)); 
-	  countSlides();
-	  pagination();
-	}
-	function countSlides(){
-	  $('#counter').html(pos+1 + ' / ' + totalSlides);
-	}
-	function pagination(){
-	  $('#pagination-wrap ul li').removeClass('active');
-	  $('#pagination-wrap ul li:eq('+pos+')').addClass('active');
-	}
-});
+// $(function() {
+// 	var pos = 0;  //current position
+// 	var totalSlides = $('#slider-wrap ul li').length;  //number of slides
+// 	var sliderWidth = $('#slider-wrap').width();   //get the slide width
+// 	$(document).ready(function(){
+// 	  $('#slider-wrap ul#slider').width(sliderWidth*totalSlides);
+// 	  $('#next').click(function(){
+// 	    slideRight();
+// 	  });
+// 	  $('#previous').click(function(){
+// 	    slideLeft();
+// 	  });
+// 	  var autoSlider = setInterval(slideRight, 3000);
+// 	  $.each($('#slider-wrap ul li'), function() { 
+// 	     var li = document.createElement('li');
+// 	     $('#pagination-wrap ul').append(li);    
+// 	  });
+// 	  countSlides();
+// 	  pagination();
+// 	  $('#slider-wrap').hover(
+// 	    function(){ $(this).addClass('active'); clearInterval(autoSlider); }, 
+// 	    function(){ $(this).removeClass('active'); autoSlider = setInterval(slideRight, 3000); }
+// 	  );
+// 	});//DOCUMENT READY
+// 	function slideLeft(){
+// 	  pos--;
+// 	  if(pos==-1){ pos = totalSlides-1; }
+// 	  $('#slider-wrap ul#slider').css('left', -(sliderWidth*pos));  
+// 	  countSlides();
+// 	  pagination();
+// 	}
+// 	function slideRight(){
+// 	  pos++;
+// 	  if(pos==totalSlides){ pos = 0; }
+// 	  $('#slider-wrap ul#slider').css('left', -(sliderWidth*pos)); 
+// 	  countSlides();
+// 	  pagination();
+// 	}
+// 	function countSlides(){
+// 	  $('#counter').html(pos+1 + ' / ' + totalSlides);
+// 	}
+// 	function pagination(){
+// 	  $('#pagination-wrap ul li').removeClass('active');
+// 	  $('#pagination-wrap ul li:eq('+pos+')').addClass('active');
+// 	}
+// });
 
 </script>
 </body>

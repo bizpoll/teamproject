@@ -13,8 +13,8 @@ public class ScheduleDTO {
 	private int schedule_no;
 	private String schedule_title;
 	private Timestamp schedule_regist_date;
-	private Timestamp schedule_start;
-	private Timestamp schedule_end;
+	private String schedule_start;
+	private String schedule_end;
 	private String schedule_recommend;
 	private int schedule_viewcount;
 	private String member_id;
